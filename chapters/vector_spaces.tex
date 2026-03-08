@@ -1,0 +1,109 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Vector Spaces}
+
+\begin{definition}{Vector Space}{vect_spaces}
+	A \textbf{vector space} over a field $K$ is a set $V$, endowed with two operations
+	\begin{align*}
+		+ : V \times V \to V,& \qquad (v_1, v_2) \mapsto v_1 + v_2,\\
+		\cdot : K \times V \to V,& \qquad (\alpha, v) \mapsto \alpha \cdot v
+	\end{align*}
+	s.t. the following conditions (axioms) hold:
+	\begin{enumerate}
+		\item[(V1)] $\forall v_1, v_2, v_3 \in V: v_1 + (v_2 + v_3) = (v_1 + v_2) + v_3,$
+		\item[(V2)] $\exists \text{ an element } 0 \in V : 0 + v = v \qquad \forall v \in V$,
+		\item[(V3)] $\forall v \in V \; \exists v' \in V : v + v' = 0$,
+		\item[(V4)] $\forall v_1, v_2 \in V : v_1 + v_2 = v_2 + v_1$,
+		\item[(V5)] $\forall a,b \in K\; \forall  v \in V : a \cdot (b \cdot v) = (a\cdot b) \cdot v$,
+		\item[(V6)] $\forall v \in V : 1 \cdot v = v$,
+		\item[(V7)] $\forall a \in K \; \forall v_1,v_2 \in V : a \cdot (v_1 + v_2) = a\cdot v_1 + a\cdot v_2$,
+		\item[(V8)] $\forall a,b \in K \; \forall v \in V : (a + b)\cdot v = a\cdot v + b \cdot v$.
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}{Properties of Vector Spaces}{prop_vect_spaces}
+	Let $V$ be a vector space over a field $K$. Then:
+	\begin{enumerate}
+		\item[(a)] The $0$ vector from (V2) is unique. To avoid confusion (e.g. with $0 \in K$) we will sometimes denote it by $0_{V}$.
+		\item[(b)] The element $v'$ (corresponding to $v$) from (V3) is unique. We'll denote it by $-v$. We'll also write $w - v := w + (-v)$ for all $w \in V$,
+		\item[(c)] $\forall v \in V : 0 \cdot v = 0$,
+		\item[(d)] $\forall a \in K : a \cdot 0 = 0$,
+		\item[(e)] $\forall v \in V : -1 \cdot v = -v$,
+		\item[(f)] $\forall v \in V : -(-v) = v$,
+		\item[(g)] If $a \cdot v = 0$ for some $a \in K, v \in V$, then either $a = 0$ or $v = 0$,
+		\item[(h)] Associativity for $+$ holds also for some of $n$ elements. $v_1 + \hdots + v_n$ makes sense no matter how we put the brackets $v_1 + (v_2 + (\hdots + (v_{n-1} + v_n)))$ or $(v_1 + v_2) + (\hdots)$ etc.
+	\end{enumerate}
+\end{lemma}
+
+\subsubsection*{Example: The Coordinate Space $K^n$}
+Let $K$ be a field and $n \in \mathbb{N}$.
+\[
+	K^n = \{(a_1, \hdots , a_n)\; |\; a_i \in K, 1 \leq i \leq n\}.
+\]
+$K^n$ is a vector space over $K$ if we endow it with the following operations:
+\begin{itemize}
+	\item[$\bullet$] Let $v = (a_1, \hdots , a_n), w = (b_1, \hdots , b_n) \in K^n$.
+	\[
+		v + w = (a_1, \hdots , a_n) + (b_1, \hdots , b_n) := (a_1 + b_1, \hdots , a_n + b_n),
+	\]
+	\item[$\bullet$] For $a \in K$
+	\[
+		a\cdot v = a\cdot (a_1, \hdots , a_n) := (a\cdot a_1, \hdots , a\cdot a_n)
+	\]
+	\item[$\bullet$] $0 := (0, \hdots , 0) \in K^n$
+\end{itemize}
+With these operations $K^n$ becomes a vector space over $K$.
+
+\begin{definition}{Linear Subspace}{lin_subsp}
+	Let $V$ be a vector space over $K$. A subset $W \subseteq V$ is called a \textbf{linear subspace} of $V$ (or just subspace of $V$), if the following holds
+	\begin{enumerate}
+		\item[(LSS1)] $W \neq \emptyset$,
+		\item[(LSS2)] $\forall w_1, w_2 \in W : w_1 + w_2 \in W$,
+		\item[(LSS3)] $\forall a \in K, w \in W : a\cdot w \in W$.
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}{Linear Subspace is a Vector Space}{subsp_vectsp}
+	Let $V$ be a vector space over $K$ and $W \subseteq V$ a subspace. Then $W$ is a vector space on its own, when endowed with the operations from $V$.
+\end{lemma}
+
+\begin{lemma}{Criterion for a Linear Subspace}{crit_subsp}
+	Let $V$ be a vector space over $K$, and $W  \subseteq V$ a subset. Then $W$ is a linear subspace of $V$ if and only if the following holds:
+	\begin{enumerate}
+		\item[(1)] $0_V \in W$,
+		\item[(2)] $\forall a_1, a_2 \in K, w_1, w_2 \in W : a_1 w_1 + a_2 w_2 \in W$.
+	\end{enumerate}
+\end{lemma}
+
+\subsubsection*{Example: Spaces of functions}
+Fix a field $K$ and a non-empty set $S$. Define
+\[
+	K^S = \{f:S \to K \;|\; f \text{ is a function}\}.
+\]
+Define $+$ and $\cdot$ on $K^S$ as follows. Let $f,g \in K^S$, $a \in K$. Define
+\begin{align*}
+	(f+g):S \to K,& \qquad S \owns x \overset{f+g}{\longmapsto} f(x) + g(x),\\
+	(a \cdot f): S \to K,& \qquad S \owns x \overset{a\cdot f}{\longmapsto} a\cdot f(x).
+\end{align*}
+
+Now Let $S = [0, 1]$ and take $K = \mathbb{R}$. Define $C(S) := \{f \in \mathbb{R}^S \;|\; f \text{ is continuous on }[0,1]\} \subseteq \mathbb{R}^S$.
+Then $C(S) \subseteq \mathbb{R}^S$ is a linear subspace.
+
+\subsection{Span of Sets}
+
+
+
+
+
+
+
+
+
+
+
