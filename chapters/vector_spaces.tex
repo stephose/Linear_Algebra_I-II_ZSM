@@ -176,6 +176,7 @@ Let $V$ be a vector space over $K$.
 		\forall a_1, \hdots , a_n \in K : a_1v_1 + \hdots + a_n v_n \quad \Longrightarrow \quad a_1 = 0, \hdots a_n = 0.
 	\]
 	By definition, we say that the empty list of vectors $\emptyset$ is linearly independent.
+	We say that a list of vectors is linearly dependent if, the list is not linearly independent.
 \end{definition}
 
 \begin{remark}
@@ -186,7 +187,14 @@ Let $V$ be a vector space over $K$.
 	\end{enumerate}
 \end{remark}
 
+\begin{definition}{Linear Independence in the Context of Families}{lin_indep_fam}
+	Let $\mathcal{F} = \{v_i\}_{i \in I}$ be a familiy of vectors in $V$, indexed by a set $I$. We say that $\mathcal{F}$ is linearly independent if $\forall n \in \mathbb{N}$ and any sequence of distinct indices $i_1, \hdots , i_n \in I$, the list of vectors $v_{i_1}, \hdots , v_{i_n}$ is linearly independent.
+	Of course, if in $\mathcal{F}$ there are any repetitions of vectors, i.e., if $\exists i,j, i\neq j$, s.t. $v_i = v_j$, then $\mathcal{F}$ cannot be linearly independent.
+\end{definition}
 
+\begin{lemma}{Subsets of Linearly Independent Sets are Linearly Independent}{lin_indep_subset}
+	If $\emptyset \neq S \subseteq V$ is linearly independent. Then every non-empty subset $S' \subseteq S$ is also linearly independent.
+\end{lemma}
 
 
 
