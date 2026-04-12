@@ -196,6 +196,174 @@ Let $V$ be a vector space over $K$.
 	If $\emptyset \neq S \subseteq V$ is linearly independent. Then every non-empty subset $S' \subseteq S$ is also linearly independent.
 \end{lemma}
 
+\begin{definition}{Linear Dependence}{lin_dep}
+	A family $\mathcal{F} = \{v_i\}_{i \in I}$ of vectors in $V$ is called \textbf{linearly dependent} if it is not linearly independent.
+\end{definition}
+
+\subsubsection{Basis of a Vector Space}
+
+\begin{definition}{Basis of a Vector Space}{basis_vect_sp}
+	A subset $S \subseteq V$ of a vector space is called a basis of $V$ if the following holds:
+	\begin{enumerate}
+		\item[(1)] $S$ is linearly independent.
+		\item[(2)] $S$ generates (or spans) $V$, i.e., $\operatorname{Sp}(S) = V$.
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}{Equivalent Formulation of basis}{equiv_basis}
+	A subset $S \subseteq V$ is a basis of $V$ if and only if every $v \in V$ can be written in a unique way as a linear combination of vectors in $S$.
+\end{proposition}
+
+\begin{proof}
+	For simplicity we will assume that $|S| < \infty$. The case $|S| = \infty$ is similar.
+	
+	\underline{$\Longleftarrow$:} We assume that every $v \in V$ can be written in a unique way as a linear combination of elements from $S$. Now, ''can be written'' means that $\operatorname{Sp}(S) = V$. Next write $S = \{v_1, \hdots , v_n\}$. Consider the vector $0 \in V$. Clearly 
+	\[
+		0 = 0\cdot v_1 + \hdots + 0 \cdot v_n.
+	\]
+	Since 0 can be written in a unique way as a linear combination of $v_1, \hdots , v_n$ it follows that
+	\[
+		0 = a_1 v_1 + \hdots + a_n v_n \qquad \Longrightarrow \qquad a_1 = \hdots = a_n = 0.
+	\]
+	Therefore, $S$ is linearly independent, which proves that $S$ is a basis of $V$.
+	
+	\underline{$\Longrightarrow:$} We assume that $S$ is a basis for $V$. By assumption $\operatorname{Sp}(S) = V$, so this means every $v \in V$ can be expressed as a linear combination of vectors from $S$. It remains to show that this unique.
+	
+	Assume by contradiction that $\exists v \in V$ which has two different ways to be written as a linear combination of vectors from $S$, i.e., 
+	\[
+		v = a_1 v_1 + \hdots + a_n v_n = b_1 v_1 + \hdots + b_n v_n
+	\]
+	and $a_k \neq b_k$ for some $1 \leq k \leq n$. Then
+	\[
+		0 = (a_1 - b_1)v_1 + \hdots + \underbrace{(a_k - b_k)}_{\displaystyle \neq 0} + \hdots + (a_n - b_n) v_n
+	\]
+	and we deduce that 0 can be written as a non-trivial linear combination of elements from $S$. Therefore, $S$ is linearly dependent, which is a contradiction to the fact that $S$ is a basis of $V$. \qedhere
+\end{proof}
+
+\subsubsection*{Example: Bases}
+
+$V = M_{m \times n}(K)$, $\{E_{ij} \;|\; 1 \leq i \leq m, 1 \leq j \leq n\}$ is a basis, where
+\[
+	E_{ij} = 
+	\begin{pmatrix}
+		0 & \hdots & 0 & \hdots & 0\\
+		\vdots & \ddots & \vdots & \ddots & \vdots\\
+		0 & \hdots & 1 & \hdots & 0\\
+		\vdots & \ddots & \vdots & \ddots & \vdots\\
+		0 & \hdots & 0 & \hdots & 0\\
+	\end{pmatrix},
+\]
+where the 1 is at the position $(i,j)$ in the matrix.
+
+\begin{lemma}{A}{lemma_a}
+	Let $v_1, \hdots , v_m \in V$ be a list of vectors which is linearly dependent. Then $\exists 1 \leq j \leq m$ s.t.:
+	\begin{enumerate}
+		\item[(1)] $v_j \in \operatorname{Sp}(v_1, \hdots , v_{j-1})$.
+		\item[(2)] $\operatorname{Sp}(v_1 ,\hdots ,v_{j-1}, v_{j+1}, \hdots , v_m ) = \operatorname{Sp}(v_1, \hdots , v_m)$. In other words, we can drop one of the vectors from the list without changing the span.
+	\end{enumerate}
+\end{lemma}
+
+\begin{lemma}{B}{lemma_b}
+	Same assumptions an in Lemma \ref{lem*lemma_a}, but we assume in addition that $v_1, \hdots , v_k$ are linearly independent, where $1 \leq k \leq m$ is some index. Then $k < j$.
+\end{lemma}
+
+\begin{lemma}{C}{lemma_c}
+	Let $w_1, \hdots , w_n \in V$ s.t. $\operatorname{Sp}(w_1, \hdots , w_n) = V$, and let $v \in V$. Then $v, w_1, \hdots , w_n$ is linearly dependent.
+\end{lemma}
+
+\begin{lemma}{D}{lemma_d}
+	Let $v_1, \hdots, v_n \in V$ be s.t. $\operatorname{Sp}(v_1, \hdots , v_n) = V$, and let $u_1, \hdots , u_m \in V$ be linearly independent. Then $m \leq n$. Moreover, one can delete $m$ vectors from the list $v_1, \hdots , v_n$ s.t. the remaining list, say $v_1', \hdots , v_n'$ together with $u_1, \hdots , u_m$ still span $V$, i.e., $\operatorname{Sp}(u_1, \hdots , u_m, v_1', \hdots , v_n') = V$.
+\end{lemma}
+
+\begin{lemma}{E}{lemma_e}
+	Let $w_1, \hdots , w_l \in V$ and assume that $w_j \notin \operatorname{Sp}(w_1, \hdots , w_{j-1}) \quad \forall 1 \leq j \leq l$. Then the list $w_1, \hdots , w_l$ is linearly independent.
+\end{lemma}
+
+\begin{lemma}{F}{lemma_f}
+	Suppose that $\operatorname{Sp}(v_1, \hdots , v_n) = V$. Then $\exists$ a subset of $\{v_1, \hdots , v_n\}$ which is a basis for $V$.
+\end{lemma}
+
+\begin{theorem}{Bases Have the Same Number of Elements}{bases_num_el}
+	Let $V$ be a finite dimensional vector space over $K$. Then $V$ has a basis with finitely many elements. Moreover, every basis of $V$ is finite and has the same number of elements.
+\end{theorem}
+
+\begin{definition}{Dimension of a Vector Space}{dim_vect_sp}
+	Let $V$ be a finite dimensional vector space over $K$. We define the dimension of $V$ to be the number $n \in \mathbb{N}$ of elements in a basis (any basis !) of $V$. We write $\operatorname{dim}V := n$. In case $V$ is not finite dimensional we write $\operatorname{dim}V = \infty$.
+\end{definition}
+
+\begin{remark}
+	\begin{itemize}
+		\item[$\bullet$] $\operatorname{dim}V$ is well defined as it does not depend on a specific choice of basis for $V$.
+		\item[$\bullet$] $\dim\{0\} = 0$, b.c. $\emptyset$ is a basis for the space $\{0\}$, and $|\emptyset| = 0$.
+	\end{itemize}
+\end{remark}
+
+\subsubsection*{Summary}
+Let $V$ be a finite dimensional vector space over $K$. Then:
+\begin{enumerate}
+	\item[(1)] Every finite list of vectors that spans $V$ contains a sublist which is a basis for $V$.
+	\item[(2)] Every linearly independent list can be extended to a basis of $V$.
+\end{enumerate}
+
+\begin{theorem}{Equivalent Statements for Bases}{equiv_basis}
+	Let $V$ be a vector space of $\dim V = n \in \mathbb{N}$. Let $v_1, \hdots , v_n \in V$. Then the following statements are equivalent:
+	\begin{enumerate}
+		\item[(1)] $v_1, \hdots , v_n$ are linearly independent.
+		\item[(2)] $v_1, \hdots , v_n$ generate $V$, i.e., $\operatorname{Sp}(v_1, \hdots , v_n) = V$.
+		\item[(3)] $v_1, \hdots , v_n$ is a basis for $V$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}{Consequences of Bases}{conseq_basis}
+	Suppose that $n = \dim V < \infty$. Let $v_1, \hdots , v_k \in V$. Then:
+	\begin{enumerate}
+		\item[(1)] If $k < n$, the list $v_1, \hdots , v_k$ \textbf{cannot} span $V$.
+		\item[(2)] If $k > n$, the list $v_1, \hdots , v_k$ \textbf{cannot} be linearly independent.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proposition}{Dimension of Subspaces}{dim_subsp}
+	Let $V$ be a finite dimensional vector space over $K$. Then every subspace $U \subseteq V$ is also finite dimensional. Moreover, $\dim U \leq \dim V$ with equality if and only if $U = V$.
+\end{proposition}
+
+
+\subsection{Row and Column Spaces}
+\begin{definition}
+	Let $A \in M_{m\times n}(K)$ and $u_1, \hdots , u_m \in K^n$ the rows of $A$ and $v_1, \hdots , v_n \in K^m$ the columns of $A$, i.e.,
+	\[
+		A =
+		\begin{pmatrix}
+			\rule[0.5ex]{1em}{0.4pt} & u_1 & \rule[0.5ex]{1em}{0.4pt}\\
+			& \vdots & \\
+			\rule[0.5ex]{1em}{0.4pt} & u_m & \rule[0.5ex]{1em}{0.4pt}
+		\end{pmatrix}
+		= 
+		\begin{pmatrix}
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+			v_1 & \hdots & v_n\\
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+		\end{pmatrix}
+	\] 
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
