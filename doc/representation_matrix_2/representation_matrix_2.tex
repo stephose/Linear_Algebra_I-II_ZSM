@@ -15,6 +15,7 @@
 	%	}
 	\tikzstyle{operation} = [circle, text centered, minimum width=0.1cm, draw=black, font=\small]
 	\tikzstyle{arrow} = [->, >=stealth]
+	\tikzstyle{arrow_map} = [|->, >=stealth]
 	
 
 	
@@ -24,12 +25,20 @@
 		\node (w) [right=2cm of v] {$W$};
 		\node (m) [below=2cm of w] {$K^m$};
 		\node[circle, draw=black, scale=0.4] (c) [above right=1.15cm of n]{C};
+		\node[text=blue] (ei) [left=0.03 of n] {$e_i \in$};
+		\node[text=blue] (vi) [above=2cm of ei] {$v_i \in$};
+		\node[text=blue] (tvi) [right=0.05cm of w] {$ \owns Tv_i$};
+		\node[text=blue] (tvic) [below=1.9cm of tvi] {$\owns [Tv_i]_{\mathcal{C}}$};
 		
 		
 		\draw[arrow] (n) -- node[anchor=north, scale=0.8] {$\Phi_{\mathcal{C}} \circ T \circ \Phi^{-1}_{\mathcal{B}}$} (m);
-		\draw[arrow] (n) -- node[anchor=east, scale=0.8] {$\Phi^{-1}_{\mathcal{B}}$} (v);
+		\draw[arrow] (n) -- node[anchor=west, scale=0.8] {$\Phi^{-1}_{\mathcal{B}}$} (v);
 		\draw[arrow] (v) -- node[anchor=south, scale=0.8] {$T$} (w);
-		\draw[arrow] (w) -- node[anchor=west, scale=0.8] {$\Phi_{\mathcal{C}}$} (m);
+		\draw[arrow] (w) -- node[anchor=east, scale=0.8] {$\Phi_{\mathcal{C}}$} (m);
+		
+		\draw[arrow_map, draw=blue] (ei) -- (vi);
+		\draw[arrow_map, draw=blue] (vi.north) to [bend left] (tvi.north);
+		\draw[arrow_map, draw=blue] (tvi) -- (tvic);
 	\end{tikzpicture}
 	
 \end{document}
