@@ -1,0 +1,22 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,positioning,fit, shapes.geometric}
+
+\begin{document}
+	\tikzstyle{operation} = [circle, text centered, minimum width=0.1cm, draw=black, font=\small]
+	\tikzstyle{arrow} = [->, >=stealth]
+	\tikzstyle{arrow_map} = [|->, >=stealth]
+	
+	\begin{tikzpicture}
+		\node (v) {$V$};
+		\node (vu) [below=2cm of v] {$V/U$};
+		\node (w) [right=2cm of v] {$W$};
+		\node[operation, scale=0.4] (c) [below right=0.7cm of v] {C};
+		
+		\draw[arrow] (v) -- node[anchor=east, scale=0.8] {$\pi$} (vu);
+		\draw[arrow] (v) -- node[anchor=south, scale=0.8] {$T$} (w);
+		\draw[arrow] (vu) -- node[anchor=north west, scale=0.8] {$T' \; (\exists\, !)$} (w);
+	\end{tikzpicture}
+\end{document}

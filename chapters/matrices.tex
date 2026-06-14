@@ -1,0 +1,384 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Matrices}
+
+\begin{definition}{Matrix Multiplication}{mat_mul}
+	Let $A \in M_{m \times n}(K), B \in M_{n \times p}(K)$. We define a new matrix $A \cdot B \in M_{m \times p}(K)$ which is called the product of $A$ and $B$. Write $A = (a_{ij}), B = (b_{ij})$. The matrix $A \cdot B$ has entries $(c_{ij})$, where
+	\[
+	c_{ij} = \sum_{k=1}^{n} a_{ik}b_{kj}.
+	\]
+	\textbf{Important:} $A \cdot B$ is defined only when the number of columns of $A$ equals the number of rows of $B$.
+\end{definition}
+
+\textbf{Conclusion:} Let $T:V \to W, S:W \to U$ be lineear maps between finite dimensional vector spaces. Let $\mathcal{A}, \mathcal{B}, \mathcal{C}$ be bases for $V, W, U$ respectively. Then
+\[
+[S \circ T]^{\mathcal{A}}_{\mathcal{C}} = [S]^{\mathcal{B}}_{\mathcal{C}}\cdot [T]^{\mathcal{A}, \mathcal{B}}.
+\]
+
+\begin{definition}{Kronecker-Delta/Identity Matrix}{kron_delta}
+	Let $\mathcal{I}$ be an index set. Define for all $i, j \in \mathcal{I}$
+	\[
+	\delta_{ij} := \begin{cases}
+		1 & \text{if }i = j,\\
+		0 & \text{if }i \neq j.
+	\end{cases}
+	\]
+	This is called the \textbf{kronecker-delta}.
+	
+	We define the \textbf{identity matrix} $I_n \in M_{n \times n}(K)$ as
+	\[
+	I_n := \delta_{ij}, \qquad I_n = \begin{pmatrix}
+		1 & \hdots & 0\\
+		\vdots & \ddots & \vdots \\
+		0 & \hdots & 1
+	\end{pmatrix}.
+	\]
+\end{definition}
+
+\begin{remark}
+	Let $V$ be a finite dimensional vector space and $n := \dim V$. Let $id:V \to V$ be the identity map. Let $\mathcal{B}$ be any basis for $V$. Then $[id]^{\mathcal{B}}_\mathcal{B} = I_n$. In other words, the matrix representation of the identity map w.r.t $\mathcal{B} \& \mathcal{B}$ is the identity matrix $I_n$.
+\end{remark}
+
+\begin{proposition}{Associativity and Distributivity of Matrix Multiplication}{assoz_distr_mat_mul}
+	\begin{enumerate}
+		\item $\forall A \in M_{m \times n}(K), B \in M_{n \times p}(K), C \in M_{p \times q}(K) :\; (A B) C = A (B C) \in M_{m \times q}$.
+		\item $\forall A,B \in M_{m \times n}(K), C \in M_{n \times p}(K), C' \in M_{q \times m}(K)$ we have
+		\begin{align*}
+			(A + B) C &= AC + BC \in M_{m \times p}(K),\\
+			C' (A + B) &= C'A + C'B \in M_{q \times n}(K).
+		\end{align*}
+		\item $\forall A \in M_{m \times n}(K) : \; I_m A = A I_n = A$.
+		\item $\forall \alpha \in K, A \in M_{m \times n}(K), B \in M_{n \times p}(K) : \; \alpha (A B) = (\alpha A) B = A (\alpha B)$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+	Matrix multiplication is in general \textbf{not} commutative, i.e., $\exists A, B$ s.t. $A B \neq B A$.
+	
+	In $M_{n \times n}(K)$ we can add/subtract matrices and also multiply matrices. There is also a unit $I_n$. These operations satisfy properties like associativity, distributivity, etc. From thsi we get that $M_{n \times n}(K)$ is a (non-commutative) \textbf{ring} with a unity.
+\end{remark}
+
+\begin{definition}{Invertibility}{inv}
+	An $n \times n$ matrix $A \in M_{n \times n}(K)$ is \textbf{invertible} if $\exists B \in M_{n \times n}(K)$ s.t. $AB = BA = I_n$.
+\end{definition}
+
+\begin{remark}
+	If $A$ is invertible, then there exists only one matrix $B$ s.t. $AB = BA = I_n$.
+\end{remark}
+
+\begin{proof}
+	Assume $AB = BA = I_n$ and $AC = CA = I_n$. Then
+	\[
+	B = B I_n = B (AC) = (BA) C = I_n C = C.
+	\qedhere
+	\]
+\end{proof}
+
+\begin{definition}{The Inverse Matrix}{inv_mat}
+	If $A$ is invertible, the unique matrix $B$ s.t. $AB = BA = I_n$ is called \textbf{the inverse of} $A$ and is denoted by $A^{-1}$. So, we have $A A^{-1} = A^{-1} A = I_n$.
+	
+	We denote the set of all invertible $n \times n$ matrices by
+	\[
+	GL_n(K) = GL(n, K) := \{A \in M_{n \times n}(K) \; |\; A \text{ is invertible}\}.
+	\]
+	This set is called the general linear group.
+\end{definition}
+
+\begin{proposition}{Structure of the General Linear Group}{struc_gl}
+	$GL_n(K)$, endowed with matrix multiplication $(A, B) \mapsto A \cdot B$ is a group. The unity is $I_n$. The inverse of $A \in GL_n(K)$ is $A^{-1}$. Moreover, \[
+	\forall A,B \in GL_n(K) :\; (A^{-1})^{-1} = A, \quad (AB)^{-1} = B^{-1}A^{-1}.
+	\]
+\end{proposition}
+
+\begin{corollary}{Unique Solution for Linear System of Equations}{sol_lin_eq}
+	Let $A \in GL_n(K)$. Then $\forall b \in K^n$ the linear system of equations $A  x = b$ has a unique solution, namely $x = A^{-1}b$.
+\end{corollary}
+
+\begin{proposition}{Invertibility and Isomorphisms}{inv_iso}
+	Let $A \in M_{n \times n}(K)$. Then $A \in GL_n(K)$ if and only if $T_A:K^n \to K^n$ is an isomorphism. Moreover, $(T_A)^{-1} = T_{A^{-1}}$.
+\end{proposition}
+
+\begin{definition}{Upper/Lower Triangular and Diagonal Matrices}{triang_diag_mat}
+	A matrix $A \in M_{n \times n}(K), A = (a_{ij})$, is called
+	\begin{itemize}
+		\item[$\bullet$] \textbf{Upper triangluar} if $a_{ij} = 0 \quad \forall i > j$, i.e.,
+		\[
+		\begin{pmatrix}
+			\ast & \hdots & \hdots & \ast\\
+			0 & \ddots & & \vdots \\
+			\vdots & \ddots & \ddots & \vdots\\
+			0 & \hdots & 0 & \ast 
+		\end{pmatrix}.
+		\]
+		\item[$\bullet$] \textbf{Lower Triangular} if $a_{ij} = 0 \quad \forall i < j$, i.e.,
+		\[
+		\begin{pmatrix}
+			\ast & 0 & \hdots & 0\\
+			\vdots & \ddots & & \vdots \\
+			\vdots & \ddots & \ddots & 0\\
+			\ast & \hdots & \hdots & \ast		
+		\end{pmatrix}.
+		\]
+		\item[$\bullet$] \textbf{Diagonal} if $a_{ij} = 0 \quad \forall i \neq j$, i.e.,
+		\[
+		\begin{pmatrix}
+			1 & \hdots & 0\\
+			\vdots & \ddots & \vdots\\
+			0 & \hdots & 1
+		\end{pmatrix}.
+		\]
+	\end{itemize}
+\end{definition}
+
+\begin{lemma}{Multiplication of Triangular/Diagonal Matrices}{mult_triang_diag_mat}
+	Let $A, B$ be two diagonal (respectively both upper triangular, respectively both lower triangular). Then $A \cdot B$ is of the same type.
+\end{lemma}
+
+\begin{corollary}{Change of Bases for a Linear Map}{change_base_lin_map}
+	Let $V, W$ be finite dimensional vector spaces over $K$. Let $n:= \dim V, m := \dim W$. Let $\mathcal{B}, \mathcal{B'}$ be two bases for $V$, and $\mathcal{C}, \mathcal{C'}$ be two bases for $W$. Then
+	\begin{align*}
+		[id_V]^{\mathcal{B'}}_{\mathcal{B}} &\in GL_n(K),\; [id_W]^{\mathcal{C}}_{\mathcal{C'}} \in GL_m(K), \text{and } \\ [id_V]^{\mathcal{B'}}_{\mathcal{B}} &= ([id_V]^{\mathcal{B}}_{\mathcal{B'}})^{-1},
+		[id_V]^{\mathcal{C'}}_{\mathcal{C}} = ([id_V]^{\mathcal{C}}_{\mathcal{C'}})^{-1}.
+	\end{align*}
+	Let $T:V \to W$ be a linear map. Then
+	\[
+	[T]^{\mathcal{B'}}_{\mathcal{C'}} = [id_W]^{\mathcal{C}}_{\mathcal{C'}} \cdot [T]^{\mathcal{B}}_{\mathcal{C}} \cdot [T]^{\mathcal{B'}}_{\mathcal{B}}.
+	\]
+\end{corollary}
+
+\begin{definition}{Transition Matrix/Change of Bases Matrix}{transition_change_mat}
+	Let $V$ be a finite dimensional vector space over $K$, $n:= \dim V$. Let $\mathcal{B}, \mathcal{B'}$ be two bases of $V$. The matrix $[id_V]^{\mathcal{B}}_{\mathcal{B'}} \in GL_n(K)$ is called the \textbf{change of bases matrix} between $\mathcal{B}$ and $\mathcal{B'}$, or the \textbf{transition matrix} from basis $\mathcal{B}$ to basis $\mathcal{B'}$.
+	
+	If $\mathcal{B} = (v_1, \hdots , v_n), \mathcal{B'} = (v_1', \hdots , v_n')$ then
+	\[
+	[id_V]^{\mathcal{B}}_{\mathcal{B'}} = \begin{pmatrix}
+		\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+		[v_1]_{\mathcal{B'}} & \hdots & [v_n]_{\mathcal{B'}}\\
+		\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+	\end{pmatrix}.
+	\]
+\end{definition}
+
+\begin{proposition}{Inverse of a Matrix with Bases}{inv_mat_bases}
+	Let $T:V \to W$ bw an isomorphism between two finite dimensional vector spaces. Let $\mathcal{B}, \mathcal{C}$ be bases for $V, W$ respectively. Then $[T]^{\mathcal{B}}_{\mathcal{C}}$ is an invertible matrix and
+	\[
+	[T^{-1}]^{\mathcal{C}}_{\mathcal{B}} = ([T]^{\mathcal{B}}_{\mathcal{C}})^{-1}.
+	\]
+\end{proposition}
+
+\begin{corollary}{Change of Basis for an Endomorphism}{change_base_endo}
+	Let $V$ be a finite dimensional vector space and $T:V \to V$ a linear map (an endomorphism). Let $\mathcal{B}, \mathcal{B'}$ be two bases for $V$. Then
+	\[
+	[T]^{\mathcal{B'}}_{\mathcal{B'}} = [id_V]^{\mathcal{B}}_{\mathcal{B'}} \cdot [T]^{\mathcal{B}}_{\mathcal{B}} \cdot [id_V]^{\mathcal{B'}}_{\mathcal{B}} = ([id_V]^{\mathcal{B'}}_{\mathcal{B}})^{-1} \cdot [T]^{\mathcal{B}}_{\mathcal{B}} \cdot [id_V]^{\mathcal{B'}}_{\mathcal{B}}.
+	\]
+\end{corollary}
+
+\begin{definition}{Equivalence and Similarity of Matrices}{equiv_sim_mat}
+	\begin{enumerate}
+		\item Let $A, B \in M_{m \times n}(K)$. We say that $A$ and $B$ are \textbf{equivalent} if $\exists\, P \in GL_m(K), Q \in GL_n(K)$ s.t. $B = PAQ$.
+		\item Let $A, B \in M_{n \times n}(K)$. We say that $A$ and $B$ are \textbf{similar} if $\exists\, P \in GL_n(K)$ s.t. $B = P^{-1} A P$.
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}
+	\begin{enumerate}
+		\item Equivalence between $m \times n$ matrices gives an equivalence relation on $M_{m \times n}(K)$.
+		\item $A, B \in M_{m \times n}(K)$ are equivalent if and only if there exists two vector spaces $V, W$ with $n:= \dim V$, $m := \dim W$ and two bases $\mathcal{B}, \mathcal{B'}$ of $V$ and two bases $\mathcal{C}, \mathcal{C'}$ for $W$ s.t. $A = [T]^{\mathcal{B}}_{\mathcal{C}}$, $B = [T]^{\mathcal{B'}}_{\mathcal{C'}}$. In other words, $A$ is equivalent to $B$ if and only if $A$ and $B$ are matrix representations of the same linear map w.r.t. different choices of bases for $V$ and $W$.
+		\item Similarity between $n \times n$ matrices gives an equivalence relation on $M_{n \times n}(K)$.
+		\item $M,N \in M_{n \times n}(K)$ are similar if and only if there exists and $n$-dimensional vector space $V$ and $T:V \to V$ and two bases $\mathcal{B}, \mathcal{B'}$ of $V$ s.t. $M = [T]^{\mathcal{B}}_{\mathcal{B}}$, $N = [T]^{\mathcal{B'}}_{\mathcal{B'}}$.
+	\end{enumerate}
+\end{remark}
+
+\begin{proposition}{Existence of 'Nice' Bases}{exist_nice_bases}
+	Let $V, W$ be finite dimensional vector spaces over $K$, of dimension $n := \dim V$, $m := \dim W$. Let $T:V \to W$ be a linear map with $\operatorname{rank}(T) = r$. (Recall that $\operatorname{rank}(T) := \dim \operatorname{Im}(T)$.) Then there exists a basis $\mathcal{B} = (v_1, \hdots , v_n)$ of $V$ and a basis $\mathcal{C} = (w_1, \hdots , w_m)$ of $W$ s.t.
+	\[
+	[T]^{\mathcal{B}}_{\mathcal{C}} = \begin{pmatrix}
+		I_r & 0_{r, n-r}\\
+		0_{m-r, r} & 0_{m-r, n-r}
+	\end{pmatrix}.
+	\]
+\end{proposition}
+
+\begin{corollary}{}{cor_exist_nice_bases}
+	Let $A \in M_{m \times n}(K)$. Then $\exists P \in GL_m(K), Q \in GL_n(K)$ s.t.
+	\[
+	PAQ = \begin{pmatrix}
+		I_r & 0_{r, n-r}\\
+		0_{m-r, r} & 0_{m-r, n-r}			
+	\end{pmatrix},
+	\]
+	where $r = \operatorname{col-rank}(A)$. In particular, $\operatorname{col-rank}(A) \leq \min\{m,n\}$.
+\end{corollary}
+
+\begin{corollary}{Condition for Equivalence if Matrices}{cond_equiv_mat}
+	Let $A, B \in M_{m \times n}(K)$. Then $A \sim B$ if and only if $\operatorname{col-rank}(A) = \operatorname{col-rank}(B)$. 
+	
+	Moreover, $\forall\, 0 < r \leq \min\{m, n\}$ there is precisely one equivalence class of matrices $A$ with $\operatorname{col-rank} = r$.
+\end{corollary}
+
+\subsection{col-rank = row-rank}
+
+\begin{theorem}{col-rank = row-rank}{colrank_rowrank}
+	Let $A \in M_{m \times n}(K)$. Then $\operatorname{col-rank}(A) = \operatorname{row-rank}(A)$.
+\end{theorem}
+
+\begin{remark}
+	\begin{enumerate}
+		\item Because of this Theorem we'll denote from now on $\operatorname{rank}(A) := \operatorname{col-rank}(A) = \operatorname{row-rank}(A)$.
+		\item Suppose $A'$ is a row-reduced echelon matrix which is row-equivalent to $A$. Then we have that $\operatorname{rank}(A) =$ \# pivots in $A'$. Indeed, $\operatorname{rank}(A) = \operatorname{row-rank}(A) = \operatorname{row-rank}(A') =$ \# pivots in $A'$.
+		\item Recall that for $T:V \to W$ we defined $\operatorname{rank}(T) := \dim \operatorname{Im}(T)$. Also, if $A \in M_{m \times n}(K)$, then $\operatorname{rank}(T_A) = \dim \operatorname{Im}(T) = \operatorname{col-rank}(A)$.
+	\end{enumerate}
+\end{remark}
+
+We now present some Lemmas for the proof of the Theorem.
+
+\begin{lemma}{Isomorphisms preserve the Rank}{iso_preserve_rank}
+	Let $T:V \to W$ be a linear map, and $S:W \overset{\cong}{\longrightarrow} U$, $L: P \overset{\cong}{\longrightarrow} V$ be isomorphisms. Then
+	\begin{enumerate}
+		\item $\operatorname{rank}(S \circ T) = \operatorname{rank}(T)$.
+		\item $\operatorname{rank}(T \circ S) = \operatorname{rank}(T)$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{lemma}{}{lemma_2}
+	Let $A\in M_{m \times n}(K)$. Then $A$ is invertible if and only if $T_A K^n \to K^n$ is in isomorphism.
+\end{lemma}
+
+\begin{lemma}{Equivalent Matrices Have the Same Rank}{equiv_same_rank}
+	Let $A, B \in M_{m\times n}(K)$ s.t. $B = PAQ$, where $P \in GL_m(K)$, $Q \in GL_m(K)$. Then
+	\begin{enumerate}
+		\item $\operatorname{col-rank}(A) = \operatorname{col-rank}(B)$
+		\item $\operatorname{row-rank}(A) = \operatorname{row-rank}(B)$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\textbf{Proof of Theorem \ref{theo*colrank_rowrank}:} By Corollary \ref{cor*cor_exist_nice_bases}, $\exists P \in GL_m(K), Q \in GL_n(K)$ s.t. 
+	\[
+		PAQ = \begin{pmatrix}
+			I_r & 0_{r, n-r}\\
+			0_{m-r, r} & 0_{m-r, n-r}
+		\end{pmatrix}.
+	\]
+	Denote this matrix by $B$. For $B$ we have $\operatorname{col-rank}(B) = \operatorname{row-rank}(B) = r$. By Lemma \ref{lem*equiv_same_rank}, we have that $\operatorname{col-rank}(A) = \operatorname{col-rank}(B) = r$, and $\operatorname{row-rank}(A) = \operatorname{row-rank}(B) = r$. Therefore, $\operatorname{col-rank}(A) = \operatorname{row-rank}(A)$. \qedhere
+\end{proof}
+
+\begin{remark}
+	Although $\operatorname{row-rank}(A) = \operatorname{col-rank}(A)$, the spaces $\operatorname{ColS}(A)$ and $\operatorname{RowS}(A)$ are \textbf{different}. First of all if $A \in M_{m \times n}$, then $\operatorname{ColS}(A) \subseteq K^m$ and $\operatorname{RowS}(A) \subseteq K^n$. But even when $n = m$, these two spaces are \textbf{different}. They have the same dimension, but are different.
+\end{remark}
+
+
+\subsection{More on Matrices and Linear Equations}
+Let $A \in M_{m \times n}(K)$, and consider the system of linear equations $A x = 0$. Denote by
+\[
+	\operatorname{Sol}(A,0) := \{x \in K^n \;|\; Ax = 0\} = \ker(T_A),
+\]
+the \textbf{space} of solutions $Ax = 0$. Note that $\dim \operatorname{Sol}(A,0) = n - \operatorname{rank}(A)$ (b.c. $\dim \ker(T_A)) = n - \dim \operatorname{Im}(T_A)$). Let $A'$ be a row-reduced echelon matrix which is row-equivalent to $A$ (e.g. $A'$ is obtained from $A$ by Gauss-elimination). \# pivots of $A'$ = $\operatorname{rank}(A)$, $n - \operatorname{rank}(A) =$ \# free variables. Also, we have that $\operatorname{Sol}(A,0) = \operatorname{Sol}(A', 0)$.
+\[
+	\begin{pmatrix}
+		0 & \hdots & 0 & 1 & \ast & \hdots & \ast \\
+		0 & \hdotsfor{3} & 0 & 1 & \ast & \hdots & \ast \\
+		0 & \hdotsfor{4} & 0 & 1 & \ast & \hdots & \ast \\
+		0 & \hdotsfor{8} & 0\\
+		0 & \hdotsfor{8} & 0 
+	\end{pmatrix}
+	\begin{pmatrix}
+		x_1\\
+		\vdots \\
+		x_n
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0\\
+		\vdots \\
+		0
+	\end{pmatrix}.
+\]
+Denote by $x_{i_1}, \hdots , x_{i_l}$ the free variables, where $1 \leq i_1 < \hdots < i_l \leq n$, $l = n - \operatorname{rank}(A)$ and by $x_{j_1}, \hdots , x_{j_k}$, where $1 \leq j_1 < \hdots < j_k \leq n$, $r = \operatorname{rank}(A)$ the pivots. For each choice of values for the free variables $x_{i_1}, \hdots , x_{i_l} \in K$, the pivot variables $x_{j_1}, \hdots , x_{j_k}$ are uniquely determined. So, we obtain a map
+\begin{align*}
+	\Phi: K^l &\to \operatorname{Sol}(A,0)\\
+	\Phi(\lambda_1 ,\hdots , \lambda_l) &= \text{ the unique solution of } Ax = 0,
+\end{align*}
+with $x_{i_1} = \lambda_1, \hdots , x_{i_l} = \lambda_l$.
+
+\begin{proposition}{$\Phi$ is an Isomorphism}{phi_iso}
+	The map $\Phi$ is linear. Moreover, it is an isomorphism.
+\end{proposition}
+
+\begin{corollary}{}{cor_phi}
+	Let $b \in K^m$, $A \in M_{m \times n}(K)$. Then
+	\begin{enumerate}
+		\item $\operatorname{Sol}(A, b) := \{x \in K^n \;|\; Ax = b\} \neq \emptyset$ iff $b \in \operatorname{ColS}(A)$.
+		\item If $\operatorname{Sol}(A, b) \neq \emptyset$ and $y \in \operatorname{Sol}(A, b)$ then
+		\[
+			\operatorname{Sol}(A,b) = y + \operatorname{Sol}(A,0) := \{y + x \;|\; x \in \operatorname{Sol}(A, 0)\}.
+		\] 
+	\end{enumerate}
+\end{corollary}
+
+\begin{proposition}{}{prop_phi}
+	Let $A \in M_{m \times n}(K)$, $b \in K^m$. The following statements are equivalent:
+	\begin{enumerate}
+		\item $\operatorname{rank}(A | b) = \operatorname{rank}(A)$.
+		\item The system of equations $Ax = b$ has a solution.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{}{prop_phi_2}
+	\begin{enumerate}
+		\item $\operatorname{rank}(A | b) = \operatorname{rank}(A) = n$.
+		\item The system of equations $Ax = b$ has a unique solution.
+	\end{enumerate}
+\end{proposition}
+
+\subsection{Elementary Row Operations Revisited}
+Let $A \in M_{n \times p}(K)$. We learned about elementary row operations which are used as part of the Gauss elimination. All of these operations can be expressed by matrix multiplications.
+
+Denote by $E_{ij}$ the matrix in Example \ref{exp:bases}.
+
+\begin{itemize}
+	\item[\textbf{Type I:}] Let $1 \leq i \leq n$, $1 \leq j \leq n$, $i \neq j$. Let $\alpha \in K$. Define $Q_{ij}(\alpha)$ to be the matrix obtained from $I_n$ after applying $R_i + \alpha R_j \longrightarrow R_i$. We have $Q_{ij}(\alpha) = I_n + \alpha E_{ij}$.
+	
+	\item[\textbf{Type II:}] Let $1 \leq i \leq n, 1 \leq j \leq n$. Define $P_{ij}$ to be the matrix obtained from $I_n$ by permuting (exchanging) row \# i and row \# j, i.e. applying $R_i \longleftrightarrow R_j$. We have $P_{ij} = I_n - E_{ii} - E_{jj} + E_{ij} + E_{ji}$.
+	\item[\textbf{Type III:}] Let $1 \leq i \leq n$ and $0 \neq \alpha \in K$. Denote by $S_i(\alpha)$ the matrix obtained from $I_n$ by applying $\alpha R_i \longrightarrow R_i$.
+\end{itemize}
+
+\begin{lemma}{Elementary Row Operations as Matrix Multiplication}{row_op_mat_mul}
+	Let $A \in M_{n \times p}(K)$. 
+	\begin{enumerate}
+		\item Multiplying $A$ from the left with $Q_{ij}(\alpha)$ results in the row operation $R_i + \alpha R_j \longrightarrow R_i: \, A \overset{R_i + \alpha R_j \to R_i}{\rightarrow} Q_{ij}(\alpha) A$.
+		\item Multiplying $A$ from the left with $P_{ij}$ results in the row operation $R_i \longleftrightarrow R_j: \, A \overset{R_i \leftrightarrow R_j}{\longrightarrow} P_{ij} A$.
+		\item Multiplying $A$ from the left with $S_i(\alpha)$ results in the row operation $\alpha R_i \longrightarrow R_i: \, A \overset{\alpha R_i \to R_i}{\longrightarrow} S_i(\alpha) A$.
+	\end{enumerate}
+	The same holds for elementary column operations, which is done by right hand side multiplications of the matrices.
+\end{lemma}
+
+\begin{lemma}{Elementary Matrices are Invertible}{elem_mat_inv}
+	Every elementary matrix is invertible, and the inverse of each of them is an elementary matrix of the same type, i.e.
+	\[
+		Q_{ij}(\alpha)^{-1} = Q_{ij}(-\alpha), \qquad P_{ij}^{-1} = P_{ji}, \qquad S_{ij}(\alpha )^{-1} = S_{ij}(\alpha ^{-1}).
+	\]
+\end{lemma}
+
+\begin{theorem}{}{elem_mat_thm}
+	$\forall \, A \in GL_n(K), \; \exists\, k \geq 1$ and elementary matrices $T_1, \hdots , T_k$ s.t. $T_k\cdot \hdots \cdot T_1 \cdot A = I_n$. Furthermore, we have that
+	\[
+		A = T_1^{-1}\cdot \hdots \cdot T_k^{-1}, \qquad A^{-1} = T_k\cdot \hdots \cdot T_1.
+	\]
+	In particular, $A$ can be written as a finite product of elementary matrices.
+\end{theorem}
+
+\begin{theorem}{Equivalent condition for Invertibility}{equiv_cond_inv}
+	Let $A \in M_{n \times n}(K)$. Place $A$ together with $I_n$ in the following way $(A | I_n)$. Then $A$ is invertible if and only if $(A | I_n)$ can be brought via a sequence of elementary row-operations to the form $(I_n | B)$ for some matrix $B \in M_{n \times n}(K)$. In this case we have $A^{-1} = B$.
+\end{theorem}
+
+
+
+
+

@@ -1,0 +1,24 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,positioning,fit, shapes.geometric}
+
+\begin{document}
+	\tikzstyle{operation} = [circle, text centered, minimum width=0.1cm, draw=black, font=\small]
+	\tikzstyle{arrow} = [->, >=stealth]
+	\tikzstyle{arrow_map} = [|->, >=stealth]
+	
+	\begin{tikzpicture}
+		\node (w) {$W$};
+		\node (v) [above=2cm of w] {$V$};
+		\node (vbidual) [right=2cm of v] {$(V^*)^*$};
+		\node (wbidual) [below = 1.9cm of vbidual] {$(W^*)^*$};
+		\node[operation, scale=0.4] (c) [above right=1.3cm of w] {C};
+		
+		\draw[arrow] (v) -- node[anchor=east, scale=0.8] {$T$} (w);
+		\draw[arrow] (v) -- node[anchor=south, scale=0.8] {$\tau_V$} (vbidual);
+		\draw[arrow] (w) -- node[anchor=north, scale=0.8] {$\tau_W$} (wbidual);
+		\draw[arrow] (vbidual) -- node[anchor=west, scale=0.8] {$(T^*)^*$} (wbidual);
+	\end{tikzpicture}
+\end{document}
