@@ -1,0 +1,379 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Eigenvalues \& Eigenvectors}
+\begin{definition}{Eigenvalues \& Eigenvectors}{eigval_eigvect}
+	Let $V$ be a vector space over $K$ and $T:V \to V$ a linear map (an endomorphism of $V$). We say that $\lambda \in K$ is an \textbf{eigenvalue} of $T$ if $\exists\, v \in V \setminus \{0\}$ s.t. 
+	\[
+		Tv = \lambda v.
+	\]
+	Any vector $v \in V\setminus \{0\}$ with the property that $Tv = \lambda v$ is called an \textbf{eigenvector} of $T$ for the eigenvalue $\lambda$.
+\end{definition}
+
+\begin{definition}{Diagonalizability}{diagon}
+	Let $V$ be a finite dimensional vector space over $K$ and $T:V \to V$ a linear map. We say that $T$ is diagonalizable if there exists a basis $\mathcal{B}$ of $V$ s.t.
+	\begin{equation}
+		\label{eq:diagon_mat}
+		[T]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+			\lambda_1 & \hdots & 0\\
+			\vdots & \ddots & \vdots\\
+			0 & \hdots & \lambda_n
+		\end{pmatrix}.
+	\end{equation}
+\end{definition}
+
+\begin{lemma}{Equivalent Condition for Diagonalizability}{equiv_cond_diagon}
+	$T$ is diagonalizable if and only if there exists a basis $\mathcal{B} = (v_1, \hdots , v_n)$ consisting of eigenvectors of $T$ (i.e., $\forall \, i, \; Tv_i = \lambda_i v_i$ for some $\lambda_i \in K$). Moreover, if for some basis $\mathcal{B} = (v_1, \hdots , v_n)$ the matrix $[T]^{\mathcal{B}}_{\mathcal{B}}$ has the shape as in Equation \eqref{eq:diagon_mat}, then $\forall \, i$, $\lambda_i$ is an eigenvalue of $T$ and $v_i$ is an eigenvector of $\lambda_i$.
+\end{lemma}
+
+\begin{remark}
+	We saw that $\forall \, A\in M_{n\times n}(K)$ we have a linear map $T_A:K^n \to K^n, \; T_A(v) := Av$. We say that $A \in M_{n\times n}(K)$ is diagonalizable if the linear map $T_A$ is diagonalizable.
+\end{remark}
+
+\begin{proposition}{\textcolor{red}{Linear Independence of Eigenvectors of Distinct Eigenvalues}}{lin_indep_dist_eigenvect}
+	Let $V$ be a vector space over $K$ and $T:V \to V$ a linear map. Suppose that $\lambda_1, \hdots , \lambda_n \in K$ are eigenvalues of $T$ which are pairwise distinct (i.e., $\lambda_i \neq \lambda_j \quad \forall \, i \neq j$). Let $v_1, \hdots , v_n$ be eigenvectors for $\lambda_1, \hdots, \lambda_n$ respectively. Then $v_1, \hdots, v_n$ are linearly independent.
+\end{proposition}
+
+\begin{proof}
+	Induction on $n$.
+	
+	\textbf{$n = 1$:} $v_1$ is an eigenvector for $\lambda_1$. By definition of $v_1 \neq 0$. $\Longrightarrow \; v_1$ is linearly independent.
+	
+	\textbf{Induction step:} $Let n \geq 1$ and suppose the proposition holds for any list of $n$ eigenvalues and eigenvectors. We'll prove now that the propostion holds also fro a list of $n+1$ eigenvalues and eigenvectors. Let $\lambda_1, \hdots, \lambda_n, \lambda_{n+1}$ be pairwise distinct eigenvalues of $T$, and $v_1, \hdots , v_n, v_{n+1}$ a given list of eigenvectors of $\lambda_1, \hdots, \lambda_n, \lambda_{n+1}$, respectively. We need to prove that $v_1, \hdots , v_n, v_{n+1}$ are linearly independent.
+	
+	Assume that 
+	\begin{equation}
+		\label{eq:distinct_eigenval_1}
+		a_1v_1 + \hdots, a_n v_n + a_{n+1} v_{n+1} = 0.
+	\end{equation}
+	We need to show that $a_1 = \hdots = a_n = a_{n+1} = 0$. Apply $T$ to Equation \eqref{eq:distinct_eigenval_1}. Then we have that
+	\[
+		a_1 Tv_1 + \hdots , a_n Tv_n + a_{n+1} Tv_{n+1} = 0.
+	\]
+	But $\forall \,i :\; Tv_i = \lambda_i v_i$. Therefore,
+	\begin{equation}
+		\label{eq:distinct_eigenval_2}
+		a_1 \lambda_1 v_1 + \hdots, a_n \lambda_n v_n + a_{n+1}\lambda_{n+1}v_{n+1} = 0.
+	\end{equation}
+	Consider now Equation \eqref{eq:distinct_eigenval_2} - $\lambda_{n+1} \cdot $\eqref{eq:distinct_eigenval_1}, i.e.,
+	\[
+		a_1 (\lambda_1 - \lambda_{n+1}) v_1 + \hdots, a_n (\lambda_n - \lambda_{n+1}) v_n + a_{n+1}\underbrace{(\lambda_{n+1} - \lambda_{n+1})}_{\displaystyle = 0}v_{n+1} = 0.
+	\]
+	By the induction hypothesis $v_1, \hdots , v_n$ are linearly independent. Therefore,
+	\[
+		a_1 (\lambda_1 - \lambda_{n+1}) =  \hdots, a_n (\lambda_n - \lambda_{n+1}) = 0.		
+	\]
+	By assumptiion $\lambda_i \neq \lambda_{n+1} \quad \forall 1 \leq i \leq n$. So we have that $a_1 = \hdots = a_n = 0$. Going back to Equation \eqref{eq:distinct_eigenval_1} we get that $a_{n+1} \cdot v_{n+1} = 0$. But by assumption we also have that $v_{n+1} \neq 0$. Therefore, $a_{n+1} = 0$. \qedhere
+\end{proof}
+
+\subsection{The Characteristic Polynomial}
+\begin{proposition}{Equivalent Condition for Eigenvalue}{equiv_cond_eigenval}
+	Let $V$ be a vector space over $K$ and $T:V \to V$ a linear map. Then $\lambda \in K$ is an eigenvalue of $T$ if and only if the linear map $T - \lambda \cdot id$ is \textbf{not} injective.
+\end{proposition}
+
+\begin{definition}{The Characterstic Polynomial}{char_poly}
+	Let $V$ be a finite dimensional vector space over $K$ and $T:V \to V$ a linear map. We define the \textbf{characteristic polynomial of $T$} as
+	\[
+		p_T(x) := \det(T - x \cdot id_V).
+	\]
+	We define the characteristic polynomial of a matrix $A \in M_{n\times n}(K)$ in the same way, i.e.,
+	\[
+		p_A(x) := \det(A - x \cdot I_n).
+	\]
+\end{definition}
+
+\begin{definition}{Eigenspace}{eigenspace}
+	Let $V$ be a vector space over $K$ and $T \in \operatorname{End}(V)$. Let $\lambda \in K$ be an eigenvalue of $T$. The \textbf{eigenspace} corresponding to $\lambda$ is defined as
+	\begin{align*}
+		\operatorname{Eig}_T(\lambda) := \{ v \in V \;|\; Tv = \lambda v\} = \ker(T - \lambda id_V) = \{v \in V \;|\: v \text{ is an eigenvector of } \lambda\} \cup \{0\}.
+	\end{align*}
+	Clearly, since $\operatorname{Eig}_T(\lambda)$ is the kernel of a linear map, $\operatorname{Eig}_T(\lambda) \subseteq V$ is a linear subspace of $V$.
+\end{definition}
+
+\begin{lemma}{Properties of the Characteristic Polynomial}{prop_char_poly}
+	Let $A \in M_{n\times n}(K)$. Then:
+	\begin{enumerate}
+		\item $p_A(x)$ is a polynomial of degree $n$, with leading coefficient $(-1)^n$, i.e., $p_A(x) = c_n x^n + c_{n-1}x^{n-1} + \hdots + c_1 x + c_0$, with $c_i \in K \quad \forall \, i$, and $c_n = (-1)^n$.
+		\item $p_{A^T}(x) = p_A(x)$.
+		\item If $A$ has upper triangular form as in Definition \ref{def*triang_diag_mat}, then
+		\[
+			p_A(x) = (\lambda_1 - x)\cdot \hdots \cdot (\lambda_n - x).
+		\]
+		\item If
+		\[
+			A = \begin{pmatrix}
+				B_1 & \ast\\
+				0 & B_2
+			\end{pmatrix}
+		\]
+		is a block matrix, then
+		\[
+			p_A(x) = p_{B_1}(x) \cdot p_{B_2}(x).
+		\]
+		\item If $A$ and $B$ are similar matrices, i.e., $B = P^{-1} A P$ for some $P \in GL_n(K)$, then
+		\[
+			p_A(x) = p_B(x).
+		\]
+	\end{enumerate}
+\end{lemma}
+
+\begin{remark}
+	If $V$ is an $n$-dimensional vector space over $K$ and $T \in \operatorname{End}(V)$, then $p_T(x)$ is a polynomial of degree $n$ with leading coefficient $(-1)^n$.
+\end{remark}
+
+\begin{definition}{\textcolor{red}{The Trace}}{trace}
+	Let $A \in M_{n\times n}(K)$. Define the \textbf{trace} (Spur) of $A$ as
+	\[
+		\operatorname{Tr}(A) := \sum_{i=1}^{n} A_{ii} \in K,
+	\]
+	i.e., the sum of the entries along the diagonal of $A$. If $V$ is a finite dimensional vector space over $K$ and $T \in \operatorname{End}(V)$, we define the trace of $T$ as
+	\[
+		\operatorname{Tr}(T) := \operatorname{Tr}\big([T]^{\mathcal{B}}_{\mathcal{B}}\big),
+	\]
+	where $\mathcal{B}$ is some basis for $V$. We'll see soon that $\operatorname{Tr}(T)$ is well defined, i.e., it does not depend on the choice of $\mathcal{B}$.
+\end{definition}
+
+\begin{lemma}{\textcolor{red}{Properties of the Trace}}{prop_trace}
+	\begin{enumerate}
+		\item 
+		\[
+			\forall \, A,B \in M_{n\times n}(K) : \; \operatorname{Tr}(A\cdot B) = \operatorname{Tr}(B \cdot A).	
+		\]
+		\item If $A$ and $B$ are similar matrices, then
+		\[
+			\operatorname{Tr}(A) = \operatorname{Tr}(B).
+		\]
+		In particular, if $\mathcal{B}$ and $\mathcal{B}'$ are two bases for $V$, then
+		\[
+			\operatorname{Tr}\big([T]^{\mathcal{B}}_{\mathcal{B}}\big) = \operatorname{Tr}\big([T]^{\mathcal{B}'}_{\mathcal{B}'}\big).
+		\]
+		Thus, $\operatorname{Tr}(T)$ is well defined.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\textbf{1):}
+	\begin{align*}
+		\operatorname{Tr}(A \cdot B) &= \sum_{i=1}^{n} (A \cdot B)_{ii} = \sum_{i=1}^{n} \sum_{j=1}^{n} A_{ij} \cdot B_{ji}\\
+		&= \sum_{j=1}^{n} \sum_{i=1}^{n} A_{ij} \cdot B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{n} B_{ji} A_{ij} = \sum_{j=1}^{n} (B \cdot A)_{jj}\\
+		&= \operatorname{Tr}(B \cdot A).
+	\end{align*}
+	\textbf{2):} If $B = P^{-1}AP$ for some $P \in GL_n(K)$, then by 1) we have that
+	\begin{align*}
+		\operatorname{Tr}(B) = \operatorname{Tr}(P^{-1}AP) = \operatorname{Tr}\big(P^{-1}\cdot (AP)\big) = \operatorname{Tr}\big((AP) \cdot P^{-1}\big) = \operatorname{Tr}(A).
+	\end{align*}
+	Regarding the claim about $\operatorname{Tr}(T)$, recall that
+	\begin{equation}
+		\label{eq:trace_1}
+		[T]^{\mathcal{B}'}_{\mathcal{B}'} = [id_V]^{\mathcal{B}}_{\mathcal{B}'} \cdot [T]^{\mathcal{B}}_{\mathcal{B}} \cdot [id_V]^{\mathcal{B}'}_{\mathcal{B}}
+	\end{equation}
+	and $[id_V]^{\mathcal{B}}_{\mathcal{B}'} = \big([id_V]^{\mathcal{B}'}_{\mathcal{B}}\big)^{-1}$. So, by Equation \eqref{eq:trace_1} we have that
+	\[
+		[T]^{\mathcal{B}'}_{\mathcal{B}'} = [T]^{\mathcal{B}}_{\mathcal{B}}. \qedhere
+	\]
+\end{proof}
+
+\begin{lemma}{Coefficients of the Characteristic Polynomial}{coeff_char_poly}
+	Let $A \in M_{n \times n}(K)$ and $p_A(x) = c_n x^n + c_{n-1}x^{n-1} + \hdots + c_1 x + c_0$ its characteristic polynomial. We've already seen that $c_n = (-1)^n$. We also have that
+	\[
+		c_{n-1} = (-1)^{n-1} \cdot \operatorname{Tr}(A), \qquad c_0 = \det(A).
+	\]
+	In other words,
+	\[
+		p_A(x) = (-1)^n x^n + (-1)^{n-1}x^{n-1} + c_{n-2} x^{n-2} + \hdots + c_1 x + \det(A).
+	\]
+\end{lemma}
+
+\begin{definition}{Direct Sum}{dir_sum}
+	Let $V$ be a vector space over $K$ and $U_1, \hdots , U_r \subseteq V$ subspaces. Denote $W := U_1 + \hdots + U_r \subseteq V$. We say that $W$ is a \textbf{direct sum} of $U_1, \hdots , U_r$ (or that $U_1, \hdots , U_r$ is a direct sum) if every $w \in W$ has a \textbf{unique} representation as $w = u_1 + \hdots + u_r$ with $u_i \in U_i \quad \forall \, i$.
+\end{definition}
+
+\begin{proposition}{Eigenspaces are a Direct Sum}{eigspace_dir_sum}
+	Let $V$ be a vector space over $K$ and $T \in \operatorname{End}(V)$. Let $\lambda_1, \hdots , \lambda_r \in K$ be pairwise distinct eigenvalues of $T$. Then
+	\[
+		\operatorname{Eig}_T(\lambda_1) + \hdots + \operatorname{Eig}_T(\lambda_r)
+	\]
+	is a direct sum.
+\end{proposition}
+
+\begin{corollary}{Equivalent Condition for Diagonalizability of an Endomorphsim}{equiv_cond_diagon_endo}
+	Assume $V$ is finite dimensional, $T \in \operatorname{End}(V)$ and let $\lambda_1, \hdots , \lambda_r \in K$ be all the eigenvalues of $T$. Assume additionally that $\lambda_1, \hdots , \lambda_r$ are pairwise distinct. Then $T$ is diagonalizable if and only if
+	\[
+		\sum_{i=1}^{r} \dim \operatorname{Eig}_T(\lambda_i) = \dim V.
+	\]
+\end{corollary}
+
+\begin{lemma}{Decomposition of the Characteristic Polynomial}{decomp_char_poly}
+	Let $A \in M_{n \times n}(K)$ (or $T \in \operatorname{End}(V)$) be diagonalizable. Then $p_A(x)$ decomposes as a product of linear factors, i.e., degree 1
+	\[
+		p_A(x) = (\lambda_1 - x)\cdot \hdots \cdot (\lambda_n - x),
+	\]
+	where $\lambda_1, \hdots , \lambda_n$ are the eigenvalues of $A$ (but there might be repetitions among the $\lambda_i$'s).
+\end{lemma}
+
+\subsubsection{A Quick Digression about Polynomials}
+Let $0 \neq p(x) \in K[x]$, $\lambda \in K$. By dividing $p(x)$ by $(x - \lambda)$ we can write
+\[
+	p(x) = (x - \lambda)\cdot q(x) + R,
+\]
+where $\deg q(x) = \deg p(x) - 1$ and $R \in K$. But if we substitute $x = \lambda$, we obtain
+\[
+	p(\lambda) = 0 \cdot q(\lambda) + R = R \quad \Longrightarrow \quad p(x) = (x - \lambda)\cdot q(x) + p(\lambda).
+\]
+\textbf{Conclusion:} $p(\lambda) = 0 \quad \Longleftrightarrow \quad p(x) = (x - \lambda) \cdot q(x)$ for some $q(x) \in K[x]$. We say that $\lambda$ is a zero of $p(x)$ (Nullstelle) or a root of $p(x)$.
+
+Sometimes $\lambda$ is also a zero of $q(x)$, so $q(x) = (x - \lambda) \cdot h(x)$. Therefore, $p(x) = (x - \lambda)^2 \cdot h(x)$, etc.
+
+\begin{definition}{Multiplicity of Zeroes}{multi_zero}
+	Let $0 \neq p(x) \in K[x]$, $\lambda \in K$. We say that $\lambda$ is a \textbf{zero of multiplicity} $m \in \mathbb{N}_{>0}$ if
+	\[
+		p(x) = (x- \lambda)^m \cdot g(x),
+	\]
+	where $g(x) \in K[x]$ and $g(\lambda) \neq 0$.
+	
+	If $m \geq 2$ we say $\lambda$ is a \textbf{multiple zero} of $p(x)$.
+	
+	If $m = 1$ we say $\lambda$ is a \textbf{simple zero} of $p(x)$.
+\end{definition}
+
+
+\subsection{Geometric \& Algebraic Multiplicities of Eigenvalues}
+
+\begin{definition}{\textcolor{red}{Geometric \& Algebraic Multiplicities}}{geom_alg_multi}
+	Let $V$ be a vector space over $K$ and $T \in \operatorname{End}(V)$. Let $\lambda \in K$ be an eigenvalue of $T$. We define the \textbf{geometric multiplicity} of $\lambda$ to be
+	\[
+		m_g(T;\lambda) := \dim \operatorname{Eig}_T(\lambda).
+	\]
+	Assume now, in addition, that $V$ is finite dimensional. We define the \textbf{algebraic multiplicity} of $\lambda$ to be the multiplicity of the zero $\lambda$ in the characteristic polynomial $p_T(x)$ of $T$. We denote it by $m_A(T;\lambda)$.
+\end{definition}
+
+\begin{proposition}{\textcolor{red}{Inequlity Regarding Geometric \& Algebraic Multiplicity}}{ineq_geom_alg_multi}
+	\[
+		m_g(T;\lambda) \leq m_a(T;\lambda).
+	\]
+\end{proposition}
+
+\begin{proof}
+	Let $v_1,\hdots, v_k$ be a basis for $\operatorname{Eig}_T(\lambda)$. We extend this basis to a basis $\mathcal{B} = (v_1, \hdots , v_k, w_{k+1}, \hdots, w_n)$ of $V$. Then we have
+	\[
+		[T]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex} & \rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+			[Tv_1]_{\mathcal{B}} & \hdots & [Tv_n]_{\mathcal{B}} & [Tw_{k+1}]_{\mathcal{B}} & \hdots & [Tw_n]_{\mathcal{B}}\\
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex} & \rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\lambda & \hdots & 0 & \ast \\
+			\vdots & \ddots & \vdots & \vdots \\
+			0 & \hdots & \lambda & \ast \\
+			0 & \hdots & 0 & C
+		\end{pmatrix},
+	\]
+	where $C \in M_{(n-k \times (n-k))}(K)$. Therefore,
+	\begin{align*}
+		p_T(x) = \det\big([T]^{\mathcal{B}}_{\mathcal{B}} - x I_n\big) = (\lambda - x)^k \cdot \det(C - x I_{n-k}) = (\lambda - x)^k \cdot p_C(x) = (-1)^k\cdot (x - \lambda)^k \cdot p_C(x).
+	\end{align*}
+	this shows that the multiplicity of $\lambda$ as a zero of $p_T(x)$ is at least $k$. In other words,
+	\[
+		m_a(T;\lambda) \geq k = m_g(T;\lambda). \qedhere
+	\]
+\end{proof}
+
+\subsection{Diagonalizability}
+
+\begin{theorem}{Equivalent Statements for Diagonalizablility}
+	Let $V$ be an $n$-dimensional vector space over $K$ and $T \in \operatorname{End}(V)$. The following statements are equivalent:
+	\begin{enumerate}
+		\item $T$ is diagonalizable.
+		\item There exists a basis for $V$ whose elements are eigenvectors of $T$.
+		\item The characteristic polynomial $p_T(x)$ splits into a product of linear factors, and for every eigenvalue of $T$ the geometric and algebraic multiplicities are equal.
+		\item \[
+			\sum_{i=1}^{k} \dim \operatorname{Eig}_T(\lambda_i) = \dim V, 
+		\]
+		where $\lambda_1, \hdots , \lambda_k \in K$ are the eigenvalues of $T$.
+		\item 
+		\[
+			V \cong \bigoplus_{i = 1}^{k} \operatorname{Eig}_T(\lambda_i).
+		\]
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}{}{cor_alg_multi_diagon}
+	If $p_T(x)$ splits as a product of linear factors and each eigenvalue $\lambda$ of $T$ has algebraic multiplicity, then $T$ is digaonolizable.
+\end{corollary}
+
+\begin{corollary}{}{cor_alg_multi}
+	If $p_T(x)$ splits as a product of linear factors and each eigenavalue $\lambda$ of $T$ has algebraic multiplicity of 1, then $T$ is diagonalizable.
+\end{corollary}
+
+\subsection{Trigonalization}
+\begin{definition}{Trigonalizability}{trigon}
+	We say that $T \in \operatorname{End}(V)$ is \textbf{trigonalizable} if there exists a basis $\mathcal{B}$ for $V$ s.t. $[T]^{\mathcal{B}}_{\mathcal{B}}$ is upper triangular, i.e.,
+	\[
+		[T]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+			\lambda_1 & \hdots & \ast\\
+			\vdots & \ddots & \vdots \\
+			0 & \hdots & \lambda_n
+		\end{pmatrix}.
+	\]
+\end{definition}
+
+\begin{theorem}{Equivalent Condition for Trigonalizability}
+	Let $V$ be a finite dimensional vector space over $K$ and $T \in \operatorname{End}(V)$. Then $T$ is trigonalizable if and only if $p_T(x)$ splits as a product of linear factors, i.e.,
+	\[
+		p_T(x) = (\lambda_1 - x)^{l_1} \cdot \hdots \cdot (\lambda_k - x)^{l_k}.
+	\]
+\end{theorem}
+
+\begin{theorem}{Fundamental Theorem of Algebra}{fund_thm_alg}
+	Every polynomial $p(x) \in \mathbb{C}[x]$ with complex coefficients, splits as a product of linear factors and a constant, i.e., 
+	\[
+		p(x) = c \cdot (x - a_1)^{n_1} \cdot \hdots \cdot (x - a_r)^{n_r},
+	\]
+	with $c \in \mathbb{C}$, $r \geq 0$, $a_i \in \mathbb{C}$, $n_j \in \mathbb{N}_{>0}$.
+\end{theorem}
+
+\begin{corollary}{Trigonalizability over $\mathbb{C}$}{trigon_c}
+	Let $V$ be a finite dimensional vector space over $\mathbb{C}$. Then every $T \in \operatorname{End}(V)$ trigonalizable.
+\end{corollary}
+
+\subsection{Minimal Polynomial \& Cayley-Hamilton Theorem}
+
+\begin{definition}{Matrix Polymomial}{mat_poly}
+	Let $A \in M_{n \times n}(K)$. Let $g(x) = a_dx^d + \hdots + a_1x + a_0 \in K[x]$ be a polynomial. We can define $g(A) \in M_{n \times n}(K)$, as
+	\[
+		g(A) := a_d A^d + \hdots + a_1 A + a_0 I_n.
+	\]
+\end{definition}
+
+\begin{remark}
+	$\forall \, A \in M_{n \times n}(K) \; \exists \, g \in K[x]$ s.t. $g(A) = 0$. Indeed, consider
+	\begin{equation}
+		\label{eq:list_of_mat}
+		I_n, A, A^2, \hdots , A_r \in M_{n \times n}(K).
+	\end{equation} 
+	Since $M_{n \times n}(K)$ is a vector space of dimension $n^2$, then if we take $r > n^2$ then the elements in \eqref{eq:list_of_mat} cannot be linearly independent. Therefore, $\exists \, a_0, a_1, \hdots , a_r \in K$ s.t. 
+	\[
+		a_0I_n + a_1 A + \hdots + a_r A^r = 0.
+	\]
+	
+	A similar thing applies
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
