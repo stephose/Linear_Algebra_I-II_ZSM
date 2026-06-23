@@ -362,8 +362,29 @@ Sometimes $\lambda$ is also a zero of $q(x)$, so $q(x) = (x - \lambda) \cdot h(x
 		a_0I_n + a_1 A + \hdots + a_r A^r = 0.
 	\]
 	
-	A similar thing applies
+	A similar thing applies to $T \in \operatorname{End}(V)$, where $V$ is a finite dimensional vector space over $K$. ($T^k = \underbrace{T \circ \hdots \circ T}_{\displaystyle \times k}$, $g(T) := a_d T^d + \hdots + a_1 T + a_0 id_V $.)
 \end{remark}
+
+\begin{definition}{Minimal Polynomial}{min_poly}
+	Let $V$ be a vector space over $K$ and $T \in \operatorname{End}(V)$. A \textbf{minimal polynomial} for $T$ is a polynomial $g(x) \in K[x]$ of the minimal possible degree s.t. $g(T) = 0$.
+\end{definition}
+
+\begin{theorem}{Cayley-Hamilton}{cayley_hamilton}
+	\begin{enumerate}
+		\item Let $A \in M_{n \times n}(K)$. Then
+		\[
+			p_A(A) = 0.
+		\]		
+		\item Let $V$ be a finite dimensional vector space over $K$, and $T \in \operatorname{End}(V)$. Then
+		\[
+			p_T(T) = 0.
+		\]
+	\end{enumerate}
+\end{theorem}
+
+The proof of this Theorem may be important for the exam but will be skipped in this Document. The proof can be found in the lecture notes.
+
+
 
 
 
