@@ -1,0 +1,71 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Spectral Theorems}
+
+\begin{definition}{Orthogonal Diagonalizability}{orth_diag}
+	Let $V$ be an inner product space and $T:V \to V$ and endomorphism. We say that $T$ is \textbf{orthogonally diagonalizable} if there exists an ortho\textcolor{red}{normal} basis for $V$ consisting of eigenvectors of $T$.
+\end{definition}
+
+\begin{lemma}{Consequence of Orthogonal Diagonalizability}{consq_orth_diag}
+	If $T$ is orthogonally diagonalizable, then 
+	\[
+		T\circ T^* = T^* \circ T.
+	\]
+\end{lemma}
+
+\begin{definition}{\textcolor{red}{Normal Endomorphism/Matrix}}{normal_endo}
+	Let $V$ be an inner product space. An endomorphism $T:V \to V$ is called \textbf{normal} if 
+	\[
+		T \circ T^* = T^* \circ T.
+	\]
+	A matrix $A \in M_{n \times n}(K)$ ($K = \mathbb{R}, \mathbb{C}$) is called \textbf{normal} if 
+	\[
+		A A^* = A^* A.
+	\]
+	This is equivalent to saying that $T_A:K^n \to K^n$ is normal, if we endow $K^n$ with its standard inner product. 
+\end{definition}
+
+We've seen in Lemma \ref{lem*consq_orth_diag} that if $T:V \to V$ is orthogonally diagonalizable, then $T$ is normal. Is the converse statement also true?
+
+Over $K = \mathbb{R}$ the answer is \textbf{no!}, e.g., 
+\[
+	A = \begin{pmatrix}
+		0 & 1\\
+		-1 & 0
+	\end{pmatrix}.
+\]
+$T_A:\mathbb{R}^2 \to \mathbb{R}^2$ is a clockwise rotation by 90°, so there exist no eigenvalues in $\mathbb{R}$. But $AA^* = A^*A = I$.
+
+\begin{theorem}{Spectral Theorem over $\mathbb{C}$}{spec_theo_c}
+	Let $V$ be a finite dimensional inner product space over $\mathbb{C}$ and $T:V \to V$ a linear map. Then $T$ is orthogonally diagonalizable if and only if $T$ is normal.
+\end{theorem}
+
+\begin{lemma}{\textcolor{red}{Properties of a Normal Endomorphism}}{prop_normal_endo}
+	Let $V$ be a finite dimensional inner product space over $K = \mathbb{R}$ or $\mathbb{C}$. Let $T:V \to V$ be a normal endomorphism. Then:
+	\begin{enumerate}
+		\item $\forall\,  v \in V : \; \Vert Tv \Vert = \Vert T^*v \Vert$.
+		\item $\forall \, \lambda \in K$ the endomorphism $T - \lambda \cdot id_V$ is also normal.
+		\item If $v$ is an eigenvector of $T$ with eigenvalue $\lambda$, then $v$ is also an eigenvector of $T^*$ with eigenvalue $\overline{\lambda}$.
+		\item Let $v_1, v_2$ be eigenvectors of $T$ with eigenvalues $\lambda_1, \lambda_2$ respectively. If $\lambda_1 \neq \lambda_2$, then $\langle v_1, v_2\rangle = 0$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\textbf{1)} Let $v \in V$. Then by the properties of the adjoint map $T^*$ and since $T$ is normal, we have that
+	\begin{align*}
+		\Vert T v \Vert ^2 &= \langle Tv, Tv\rangle = \langle v, T^*\circ Tv\rangle = \langle v, T \circ T^* v\rangle \\
+		&= \overline{\langle T \circ T^*v, v\rangle} = \overline{\langle T^*v, T^*v \rangle} = \langle T^*v, T^*v \rangle = \Vert T^* v\Vert ^2.
+	\end{align*}
+	Since the norm is non-negative, we conclude that
+	\[
+		\Vert Tv \Vert = \Vert T^*v\Vert.
+	\]
+	
+	\textbf{2)} Let $\lambda \in K$. By properties of adjoint maps and the normality of $T$ we have that
+\end{proof}

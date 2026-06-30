@@ -1,0 +1,22 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,positioning,fit, shapes.geometric}
+
+\begin{document}
+	\tikzstyle{operation} = [circle, text centered, minimum width=0.1cm, draw=black, font=\small]
+	\tikzstyle{arrow} = [->, >=stealth]
+	\tikzstyle{d_arrow} = [dashed, ->, >=stealth]
+	\begin{tikzpicture}
+		\node (w) {$W$};
+		\node (wstar) [above=2cm of w] {$W^*$};
+		\node (vstar) [right=2cm of wstar] {$V^*$};
+		\node (v) [below=2cm of vstar] {$V$};
+		
+		\draw[arrow] (w) -- node[anchor=east, scale=0.8] {$\Phi_W$} (wstar);
+		\draw[arrow] (wstar) -- node[anchor=south, scale=0.8] {$T^*$} (vstar);
+		\draw[arrow] (vstar) -- node[anchor=west, scale=0.8] {$\Phi^{-1}_V$} (v);
+		\draw[d_arrow] (w) -- node[anchor=north, scale=0.8] {$T'$} (v);
+	\end{tikzpicture}
+\end{document}

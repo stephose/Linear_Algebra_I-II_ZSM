@@ -96,12 +96,406 @@ At last we endow our spaces with a geometric structure. We work here with vector
 	\caption{Overview of the generality of different spaces}
 \end{figure}
 
-\begin{theorem}{Pythagoral Theorem}{pyth_theo}
+\begin{theorem}{Pythagoras Theorem}{pyth_theo}
 	Let $V$ be an Euclidean/Hermitian vector space and $u, v \in V$ with $u \perp v$. Then 
 	\[
 		\Vert u + v \Vert ^2 = \Vert u \Vert ^2 + \Vert v \Vert ^2.
 	\]
 \end{theorem}
+
+\begin{lemma}{Induced Norm}{ind_norm}
+	Let $V$ be an Euclidean space. Then
+	\[
+		\forall \, u, v \in V : \; \langle u, v \rangle = \frac{1}{2} \big(\Vert u + v \Vert ^2 - \Vert u \Vert ^2 - \Vert v \Vert ^2\big).
+	\]
+	This means that $\Vert \cdot \Vert$ determines $\langle \cdot , \cdot \rangle$.
+	
+	If $V$ is an Hermitian space, we have that
+	\[
+		\forall u, v \in V : \; \frac{1}{2} \big(\langle u, v \rangle + \overline{\langle u, v \rangle}\big) = \frac{1}{2} \big(\Vert u + v \Vert ^2 - \Vert u \Vert ^2 - \Vert v \Vert ^2\big).
+	\]
+	
+	\textcolor{red}{Warning}: There exist norms that do \textbf{not} come from scalar products.
+\end{lemma}
+
+\begin{definition}{Complex Conjugated Matrix/Adjoint Matrix/Hermitian Matrix}{adj_mat}
+	\begin{enumerate}
+		\item Let $A \in M_{n \times m}(\mathbb{C})$. We write $\overline{A}$ for the matrix whose entry at $i,j$ is $\overline{(A_{ij})}$, i.e., 
+		\[
+			\big(\overline{A}\big)_{ij} := \overline{(A_{ij})}.
+		\]
+		\item Let $A \in M_{n \times n}(\mathbb{C})$. Define 
+		\[
+			A^{\ast} := \overline{A}^T.
+		\]
+		$A^{\ast}$ is called the \textbf{adjoint matrix of $A$}. (Has nothing to do with the classical adjoint $\operatorname{adj}A$).
+		\item $A \in M_{n\times n}(\mathbb{C})$ is called \textbf{Hermitian} if $A^{\ast} = A$ ($\Longleftrightarrow \; A^T = \overline{A}$).
+	\end{enumerate}
+\end{definition}
+
+\textbf{Important Example:} Let $A \in M_{n \times n}(\mathbb{R})$. Define 
+\[
+	\langle \cdot , \cdot \rangle _A : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}, \quad \langle v, w \rangle _A = v^T A \,w.
+\]
+We can quickly see that $\langle \cdot , \cdot \rangle _A$ is bilinear. Assume now that $A$ is symmteric. Then $\langle v, w \rangle _A = \langle w, v \rangle _A \quad \forall v, w \in V$. Indeed, 
+\[
+	\langle w, v  \rangle _A = w^T A \, v = w^T A^T v = \big(v^T A \, w\big)^T = \big(\langle v , w \rangle _A\big)^T = \langle v , w \rangle _A,
+\]
+where we've used that a scalar can be viewed as a $1 \times 1$ matrix.
+
+Is $\langle \cdot , \cdot \rangle _A$ in general a scalar product? 
+
+In general it is not, e.g., for 
+\[
+	A = \begin{pmatrix}
+		1 & 0 \\
+		0 & -1
+	\end{pmatrix},
+\]
+we have that
+\[
+	\langle \begin{pmatrix}
+		0\\
+		1
+	\end{pmatrix}, 
+	\begin{pmatrix}
+		0 \\
+		1
+	\end{pmatrix} \rangle _A = -1.
+\]
+But for a scalar product we need that $\langle v, v \rangle > 0 \quad \forall\, v \neq 0$.
+
+\begin{definition}{Positive Definite}{pds_def}
+	A symmetric matrix $A \in M_{n \times n}(\mathbb{R})$ is called \textbf{positive definite} if 
+	\[
+		v^T A \, v > 0 \qquad \forall \, v \in \mathbb{R}^n \setminus \{0\}.
+	\]
+\end{definition}
+
+\begin{proposition}{Scalar Product with Matrices}{scalar_prod_mat}
+	Let $A \in M_{n \times n}(\mathbb{R})$. Then $\langle \cdot , \cdot \rangle _A$ is a scalar product if and only if $A$ is positive definite.
+\end{proposition}
+
+The situation for Hermitian products is similar.
+
+\begin{definition}{Positive Definite for Hermitian Matrices}{pos_def_hermit}
+	Let $A \in M_{n \times n}(\mathbb{C})$ be a Hermitian matrix. We say that $A$ is \textbf{positive definite} if
+	\[
+		v^T A \, \overline{v} > 0 \qquad \forall \, v \in \mathbb{C}^n \setminus \{0\}.
+	\]
+	Note that $v^T A \overline{v} \in \mathbb{R}$, b.c. 
+	\[
+		\overline{(v^T A \, \overline{v})} = \overline{v}^T \overline{A}\, v = \big(\overline{v}^T \overline{A} \, v\big)^T = v^T \overline{A}^T \, \overline{v} = v^T A \, \overline{v}.
+	\]
+\end{definition}
+
+Given a positive definite complex matrix $A$ we can define a Hermitian product on $\mathbb{C}^n$, i.e., 
+\[
+	\langle v , w \rangle _A = v^T A \, \overline{w}.
+\]
+
+\begin{proposition}{Hermitian Product with Matrices}{hermit_prod_mat}
+	Let $A \in M_{n \times n}(\mathbb{C})$. Then $\langle \cdot , \cdot \rangle _A$ is a Hermitian product if and only if $A$ is positive definite.
+\end{proposition}
+
+\subsection{Norms \& Angles}
+
+\begin{definition}{Norm}{norm}
+	Let $V$ be a vector space over $K$, where $K = \mathbb{R}$ or $\mathbb{C}$. A \textbf{norm} on $V$ is a function $\Vert \cdot \Vert : V \to \mathbb{R}$ s.t.:
+	\begin{enumerate}
+		\item Triangle inequality:
+		\[
+			\Vert u + v \Vert \leq \Vert u \Vert + \Vert v \Vert \qquad \forall \, u, v \in V.
+		\]
+		\item Homogeneity:
+		\[
+			\Vert \alpha v \Vert = \vert \alpha \vert \cdot \Vert v \Vert \qquad \forall \, \alpha \in K, v \in V.
+		\]
+		\item Non-degeneracy:
+		\[
+			\Vert v \Vert = 0 \quad \Longrightarrow \quad v = 0.
+		\]
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}{Cauchy-Schwart Inequality}{cauch_schw_ineq}
+	Let $(V, \langle \cdot , \rangle)$ be a vector space endowed with an inner product $\langle \cdot , \cdot \rangle$. Then
+	\[
+		|\langle u, v \rangle | \leq \Vert u \Vert \cdot \Vert v \Vert \qquad \forall\, u, v \in V,
+	\]
+	where equality holds if and only if $u$ and $v$ are linearly dependent.
+\end{theorem}
+
+\begin{corollary}{Induced Norm}{ind_norm}
+	Let $V$ be a vector space and $\langle \cdot , \cdot \rangle$ and inner product on $V$, then
+	\[
+	V \owns v \mapsto \Vert v \Vert := \sqrt{\langle v , v \rangle}
+	\]
+	is a norm on $V$.
+\end{corollary}
+
+\begin{definition}{Angle}{angle}
+	Let $(V, \langle \cdot , \cdot \rangle)$ be an Euclidean space. Let $u, v \in V$ be two non-zero vectors. By the Cauchy-Schwarz inequality \ref{theo*cauch_schw_ineq}, we have that
+	\[
+		-1 \leq \frac{\langle u, v \rangle}{\Vert u \Vert \cdot \Vert v \Vert} \leq 1.
+	\]
+	We define the \textbf{angle} between $u$ and $v$ to be the unique $\alpha \in [0, \pi]$ s.t.
+	\[
+		\cos \alpha = \frac{\langle u, v \rangle}{\Vert u \Vert \cdot \Vert v \Vert} \bigg( = \langle \frac{u}{\Vert u \Vert} , \frac{v}{\Vert v \Vert} \rangle \bigg)
+	\]
+\end{definition}
+
+\subsection{The Gram-Schmidt Orthogonalization Process}
+
+\begin{theorem}{Properties of Orthogonal Systems}{prop_orth_sys}
+	Let $(V, \langle \cdot , \cdot \rangle)$ be an inner product space.
+	\begin{enumerate}
+		\item If $S \subseteq V$ is an orthogonal system then $S$ is linearly independent.
+		\item If $v_1,\hdots , v_n$ is an orthogonal system and $v \in \operatorname{Sp}(v_1, \hdots , v_n)$ and write $v = a_1v_1 + \hdots + a_nv_n$, for $a_j \in K$. Then the coefficients $a_j$ are given by
+		\[
+			a_j = \frac{\langle v, v_j \rangle}{\langle v_j, v_j \rangle} \qquad \forall \, 1 \leq j \leq n.
+		\]
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}{Matrix for an Orthonormal Basis}{mat_orthn_basis}
+	Let $V, W$ be a vector space over $K = \mathbb{R}$ or $\mathbb{C}$ and let $\langle \cdot , \cdot \rangle $ be an inner product on $W$. Let $\mathcal{B} = (v_1, \hdots , v_n)$ be a basis for $V$ and $\mathcal{C} = (w_1, \hdots , w_m)$ be an ortho\textcolor{red}{normal} basis for $W$. Let $T: V \to W$ be a linear map. Write $[T]^{\mathcal{B}}_{\mathcal{C}} = (a_{ij})$. Then
+	\[
+		a_{ij} = \langle Tv_j, w_i \rangle \qquad  \forall \, i,j.
+	\] 
+	(If $\mathcal{C}$ is only a orthogonal basis then $a_{ij} = \langle Tv_j, w_i \rangle / \langle w_i, w_i \rangle$).
+\end{corollary}
+
+So having an ortho-gonal/normal basis for out spaces is useful!
+
+\begin{theorem}{Gram-Schmidt Orthogonalization Process}{gram_schm_orth_pro}
+	Let $(V, \langle \cdot , \cdot \rangle)$ be an inner product space over $K = \mathbb{R}$ or $\mathbb{C}$ and let $n = \dim V$. Let $(v_1, \hdots ,v_n)$ be a basis for $V$. Define a new list of vectors $w_1, \hdots , w_n$ by induction, as follows
+	\begin{align*}
+		w_1 &:= v_1,\\
+		w_j &:= v_j - \sum_{i=1}^{j-1} \frac{\langle v_j, w_i \rangle}{\langle w_i, w_i \rangle} \cdot w_i \quad \text{for } j = 2, \hdots , n.
+	\end{align*} 
+	Then:
+	\begin{enumerate}
+		\item $(w_1, \hdots , w_n)$ is an orthogonal basis for $V$.
+		\item $(\frac{w_1}{\Vert w_1 \Vert} , \hdots , \frac{w_n}{\Vert w_n \Vert})$ is an orthonormal basis for $V$.
+		\item $\forall \, 1 \leq j \leq n$ we have $\operatorname{Sp}(v_1, \hdots , v_j) = \operatorname{Sp}(w_1, \hdots , w_j) = \operatorname{Sp}(\frac{w_1}{\Vert w_1 \Vert} , \hdots , \frac{w_j}{\Vert w_j \Vert})$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}{Existence of an Orthonormal Basis for Finite Dimensional Spaces}{exist_orthon_basis_f_dim}
+	Every finite dimensional inner product space has an orthonormal basis.
+\end{corollary}
+
+
+\subsection{The Orthogonal Complement}
+Let $(V, \langle \cdot , \cdot \rangle)$ be an inner product space over $K = \mathbb{R}$ or $\mathbb{C}$.
+
+\begin{definition}{\textcolor{red}{Orthogonal Complement}}{orth_compl}
+	Let $\emptyset \neq S \subseteq V$ be a subset. We define the \textbf{orthogonal complement of $S$} as
+	\[
+		S^{\perp} := \{v \in V \;|\; v \perp s \quad \forall \, s \in S\} = \{v \in V \; |\; \langle v , s \rangle = 0 \quad \forall \, s \in S\}.
+	\]
+	When $S = \{v\}$ we write $v^{\perp} := \{v\}^{\perp}$.
+\end{definition}
+
+\begin{lemma}{\textcolor{red}{The Orthogonal Complement is a Subspace}}{orth_compl_subsp}
+	Let $\emptyset \neq S \subseteq V$ be a subset. Then $S^{\perp}$ is a linear subspace.
+\end{lemma}
+
+\begin{proof}
+	\textbf{1)} $0 \in S^{\perp}$ b.c. $\langle 0, s\rangle = 0$ for every $s \in S$. Furthermore, if $\alpha , \beta \in K$ and $v, w \in S^{\perp}$ then for every $s \in S$ we have that
+	\[
+	\langle \alpha v + \beta w, s \rangle = \alpha \underbrace{\langle v, s\rangle}_{\displaystyle = 0} + \beta \underbrace{\langle w, s \rangle}_{\displaystyle = 0} = 0. 
+	\]
+	Therefore, $\alpha v + \beta w \in S^{\perp}$. \qedhere
+\end{proof}
+
+
+\begin{lemma}{Further Properties of the Orthogonal Complement}{prop_orth_compl}
+	Let $\emptyset \neq S, T \subseteq V$. Then:
+	\begin{enumerate}
+		\item $0^{\perp} = V$, $V^{\perp} = \{0\}$.
+		\item $S \cap S^{\perp}$ is either $\emptyset$ or equal to $\{0\}$.
+		\item If $S \subseteq T$ then $T^{\perp} \subseteq S^{\perp}$.
+		\item $\big(\operatorname{Sp}(S)\big)^{\perp} = S^{\perp}$.
+		\item $S \subseteq \big(S^{\perp}\big)^{\perp}$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{theorem}{\textcolor{red}{The Orthogonal Complement is a Complement}}{orth_compl_compl}
+	Let $V$ be an inner product space (possibly of infinte dimension), and $U \subseteq V$ a \textbf{finite} dimensional subspace. Then $U^{\perp}$ is a complement of $U$ in $V$ (, i.e., $U + U^{\perp} = V$ and $U \cap U^{\perp} = \{0\}$).
+\end{theorem}
+
+\begin{proof}
+	By Lemma \ref{lem*prop_orth_compl} 2., we have that $U \cap U^{\perp} = \{0\}$, since $U \cap U^{\perp} \neq \emptyset$. So it's enough to show that $U + U^{\perp} = V$.
+	
+	Let $r := \dim U$ and pick an orthonormal basis $(e_1, \hdots , e_r)$ for $U$, which we can do by the Gram-Schmidt Orthogonalization Process \ref{theo*gram_schm_orth_pro} Let $v \in V$ be arbitrary. Define
+	\[
+		P_U(v) := \langle v, e_1\rangle e_1 + \hdots + \langle v, e_r \rangle e_r \in U.
+	\]
+	We have that
+	\begin{equation}
+		\label{eq:proj_onto_u}
+		v = \underbrace{P_U(v)}_{\displaystyle \in U} + (v - P_U(v)).
+	\end{equation}
+	
+	We claim that $v - P_U(v) \in U^{\perp}$. Indeed, 
+	\[
+		\langle v - P_U(v), e_i \rangle = \langle v, e_i \rangle - \sum_{k=1}^{r} \langle v, e_k \rangle \cdot \langle e_k, e_i \rangle = \langle v, e_i \rangle - \langle v, e_i \rangle = 0.
+	\]
+	This holds for every $ 1 \leq i \leq r$, hence
+	\[
+		v - P_U(v) \perp \operatorname{Sp}(e_1, \hdots , e_r) = U,
+	\]
+	i.e., $v - P_U(v) \in U^{\perp}$. Going back to Equation \eqref{eq:proj_onto_u} we see that
+	\[
+		v = \underbrace{P_U(v)}_{\displaystyle \in U} + \underbrace{(v - P_U(v))}_{\displaystyle \in U^{\perp}}.
+	\]
+	Since $v \in V$ was arbitrary, we have that $U + U^{\perp} = V$. \qedhere
+\end{proof}
+
+\begin{remark}
+	If $U \subseteq V$ is a finite dimensional subspace, then since $U^{\perp}$ is a complement of $U$ in $V$, we have a canonical isomorphism $V \cong U \oplus U^{\perp}$.
+\end{remark}
+
+\begin{definition}{The Orthogonal Projection onto a Subspace}{orth_proj_subsp}
+	Let $V$ be an inner prodct space and $U \subseteq V$ a finite dimensional subspace. We have seen that $U^{\perp}$ is a complement of $U$ in $V$ ($\Longrightarrow \; \forall \, v\in V, \; \exists ! \,u \in U, w \in U^{\perp} $ s.t. $v = u + w$).
+	
+	Define a map $P_U : V \to U$ as follows: 
+	\[
+		\forall \, v \in V, \; \exists ! \, u \in U, w \in U^{\perp} \text{ s.t. } v = u + w.
+	\]
+	We define
+	\[
+		P_U(v) := u.
+	\]
+	$P_U$ is called \textbf{the orthogonal projection onto $U$}.
+\end{definition}
+
+\begin{proposition}{Properties of $P_U$}{prop_proj}
+	$P_U$ has the following properties:
+	\begin{enumerate}
+		\item $P_U$ is a linear map.
+		\item $\operatorname{Im} P_U = U$, $\ker P_U = U^{\perp}$.
+		\item $\forall v \in V : \; v - P_U(v) \in U^{\perp}$, i.e., $P_U + P_{U^{\perp}} = id_V$.
+		\item $\forall u \in U : \; P_U(u) = u$.
+		\item If $e_1, \hdots , e_r$ is any orthonormal basis for $U$, then
+		\[
+			P_U(v) = \sum_{i=1}^{r} \langle v , e_i \rangle e_i.
+		\]
+	\end{enumerate}
+\end{proposition}
+
+\begin{corollary}{The Complement of the Complement of a Subspace}{compl_compl_subsp}
+	Let $V$ be an inner product space and $U \subseteq V$ a finite dimensional subspace. Then 
+	\[
+		\big(U^{\perp}\big)^{\perp} = U.
+	\]
+\end{corollary}
+
+\begin{corollary}{Dimension of a Subspace and its Complement}{dim_subsp_compl}
+	If $V$ is a finite dimensional inner product space and $U \subseteq V$ is a subspace, then 
+	\[
+		\dim U + \dim U^{\perp} = \dim V.
+	\]
+\end{corollary}
+
+\subsection{Orthogonal \& Unitary Matrices}
+\begin{definition}{Orthogonal \& Unitary Matrices}{orth_unit_mat}
+	\begin{enumerate}
+		\item 	A matrix $A \in M_{n\times n}(\mathbb{R})$ is called \textbf{orthogonal} if its columns form an ortho\textcolor{red}{normal} basis in $\mathbb{R}^n$, w.r.t. the standard scalar product of $\mathbb{R}^n$. We denote the set of orthognal $n \times n$ matrices by $O(n) \subseteq M_{n \times n}(\mathbb{R})$.
+		
+		\item A matrix $A \in M_{n\times n}(\mathbb{C})$ is called \textbf{unitary} if its columns form an ortho\textcolor{red}{normal} basis in $\mathbb{C}^n$, w.r.t. the standard hermitian product on $\mathbb{C}^n$. We denote the set of all unitary $n \times n$ matrices by $U(n) \subseteq M_{n\times n}(\mathbb{C})$. 
+	\end{enumerate}	
+\end{definition}
+
+
+\begin{lemma}{Equivalent Conditions for Orthogonal/Unitary Matrices}{equiv_cond_orth_mat}
+	\begin{itemize}
+		\item[$\bullet$] $A \in M_{n\times n}(\mathbb{R})$ is orthogonal $\Longleftrightarrow \; A^TA = I_n \; \Longleftrightarrow \; AA^T = I_n \; \Longleftrightarrow \; A^{-1} = A^T$.
+		\item[$\bullet$] $A \in M_{n\times n}(\mathcal{C})$ is unitary $\Longleftrightarrow \; A^{\ast}A = I_n \; \Longleftrightarrow \; AA^{\ast} = I_n \; \Longleftrightarrow \; A^{-1} = A^{\ast}$.
+	\end{itemize}
+\end{lemma}
+
+\begin{corollary}{}{cor_orth_mat}
+	\begin{enumerate}
+		\item Let $A \in M_{n\times n}(\mathbb{R})$. Then $A \in O(n) \; \Longleftrightarrow \; $the rows of $A$ form an orthonormal basis for $\mathbb{R}^n$.
+		\item Let $A \in M_{n\times n}(\mathbb{C})$. Then $A \in U(n) \; \Longleftrightarrow \;$the rows of $A$ form an orthonormal basis for $\mathbb{C}^n$.
+	\end{enumerate}
+\end{corollary}
+
+\subsection{QR-Decomposition}
+\begin{theorem}{\textcolor{red}{QR-Decomposition}}{qr_decomp}
+	\begin{enumerate}
+		\item Let $A \in GL_n(\mathbb{R})$. Then $\exists\, Q \in O(n)$ and an upper triangular matrix $R \in M_{n \times n}(\mathbb{R})$ s.t.
+		\[
+			A = QR.
+		\]
+		\item Let $A \in GL_n(\mathbb{C})$. Then $\exists \, Q \in U(n)$ and an upper triangular matrix $R \in M_{n \times n}(\mathbb{C})$ s.t. 
+		\[
+			A = QR.
+		\]
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	We'll prove 1 \& 2 together. 
+	
+	Write
+	\[
+		A = \begin{pmatrix}
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+			v_1 & \hdots & v_n\\
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+		\end{pmatrix}
+	\]
+	with $v_k \in K^n_{\text{col}}$, where $K = \mathbb{R}$ or $\mathbb{C}$. Since $A \in GL_n(\mathbb{K})$, $v_1, \hdots , v_n$ form a basis for $K^n_{\text{col}}$. Apply the Gram-Schmidt orthogonalization process \ref{theo*gram_schm_orth_pro} to $v_1, \hdots , v_n$ and obtain an orthonormal basis $e_1, \hdots , e_n$ for $K^n_{\text{col}}$. Recall that $\forall \, 1 \leq j \leq n : \; \operatorname{Sp}(v_1, \hdots , v_j) = \operatorname{Sp}(e_1, \hdots , e_j)$. By Theorem \ref{theo*prop_orth_sys} we also have that
+	\[
+		v_j = \sum_{i=1}^{j} \langle v_j, e_i\rangle e_i \qquad \forall 1 \leq j \leq n.
+	\]
+	Therefore, we can write
+	\begin{equation*}
+		\underbrace{\begin{pmatrix}
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+			v_1 & \hdots & v_j & \hdots & v_n\\
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\	
+		\end{pmatrix}}_{\displaystyle = A}
+		=
+		\underbrace{\begin{pmatrix}
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\
+			e_1 & \hdots & e_j & \hdots & e_n\\
+			\rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex} & & \rule{0.5pt}{2ex}\\			
+		\end{pmatrix}}_{\displaystyle = Q}
+		\cdot
+		\underbrace{\begin{pmatrix}
+			\langle v_1, e_1 \rangle & \langle v_2, e_1 \rangle & \hdots & \langle v_j, e_1 \rangle & \hdots & \langle v_n, e_1\\
+			0 & \langle v_2, e_2 \rangle & \hdots & \langle v_j, e_2 \rangle & \hdots & \langle v_n, e_2\rangle\\
+			\vdots & \ddots & \ddots & \vdots &  & \vdots \\
+			\vdots & & \ddots & \langle v_j, e_j \rangle & \hdots & \langle v_n, e_j \rangle\\
+			\vdots & & & \ddots & \ddots & \vdots \\
+			0 & \hdots & \hdots & \hdots & 0 & \langle v_n, e_n \rangle
+		\end{pmatrix}}_{\displaystyle = R},
+	\end{equation*}
+	as desired. \qedhere
+	
+\end{proof}
+
+Extension of QR-Decomposition for \underline{all} matrices $A \in M_{n \times n}(K)$.
+
+\begin{theorem}{Extension of QR-Decomposition}{extend_qr_decomp}
+	Let $A \in M_{n \times n}(K)$, where $K = \mathbb{R}$ or $\mathbb{C}$ and let $r := \operatorname{rank}(A)$. Then $\exists \, Q \in O(n) / U(n)$ and 
+	\[
+		R = \begin{pmatrix}
+			C & \ast\\
+			0 & 0
+		\end{pmatrix} \in M_{n \times n}(K),
+	\] 
+	where $C \in M_{r\times r}(K)$ is upper triangular, s.t.
+	\[
+		A = QR.
+	\]
+\end{theorem}
+
 
 
 
