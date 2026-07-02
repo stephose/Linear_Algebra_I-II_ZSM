@@ -1,0 +1,302 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Orthogonal \& Unitary maps / Isometries}
+\begin{definition}{Linear Isomerty}{isom}
+	Let $V, W$ be inner product spaces over $K = \mathbb{R}$ or $\mathbb{C}$. A map $T: V \to W$ is called a \textbf{linear isometry} if $T$ is linear and
+	\[
+		\forall \, v_1, v_2 \in V : \; \langle Tv_1, Tv_2 \rangle_W = \langle v_1, v_2 \rangle_V,
+	\]
+	i.e., $T$ preserves the inner product.
+\end{definition}
+
+\begin{remark}
+	If $T:V \to W$ is a linear isometry, then:
+	\begin{enumerate}
+		\item $\forall \, v \in V : \; \Vert Tv \Vert = \Vert v \Vert$.
+		\item $\forall\, p,q \in V : \; d(Tp, Tq) = d(p, q)$, where $d(p, q) := \Vert p - q \Vert$.
+		\item $T$ is injective. Indeed, if $v \in \ker T$, then 
+		\[
+			0 = \Vert Tv \Vert = \Vert v \Vert \quad \Longrightarrow \quad v = 0.
+		\]
+		So, $\ker T = \{0\}$.
+	\end{enumerate}
+\end{remark}
+
+From now on we'll concentrate on the case $W = V$, i.e., $T \in \operatorname{End}(V)$. If such a map $T$ is an isometry we also call it \textbf{orthogonal endomorphism} if $K = \mathbb{R}$, or \textbf{unitary endomorphism} if $K = \mathbb{C}$.
+
+\begin{theorem}{Equivalent Statements to Isometry}{equiv_isom}
+	Let $V$ be a finite dimensional inner product space over $K = \mathbb{R}$ or $\mathbb{C}$, and $T \in \operatorname{End}(V)$. The following are equivalent:
+	\begin{enumerate}
+		\item $T$ is an isometry.
+		\item $\forall\, v \in V : \; \Vert Tv \Vert = \Vert v \Vert$.
+		\item For every orthonormal system $e_1, \hdots , e_k$ of $V$, the list of vectors $Te_1, \hdots , Te_k$ is also an orthonormal system.
+		\item There exists an orthonormal basis $e_1, \hdots , e_n$ of $V$ s.t. $Te_1, \hdots , Te_n$ is also an orthonormal basis.
+		\item $T\,T^* = id_V$.
+		\item $T^*T = id_V$.
+		\item $T^* = T^{-1}$.
+		\item $T^*$ is an isometry.
+	\end{enumerate}
+\end{theorem}
+
+Back to matrices.
+
+\begin{proposition}{Equivalent Condition for a Orthogonal/Unitary Map}{equiv_cond_orth_map}
+	Let $V$ be an n-dimensional inner product space over $K = \mathbb{R}$ (respectively $\mathbb{C}$). Let $\mathcal{B}$ be an orthonormal basis for $V$. Let $T \in \operatorname{End}(V)$. Then $T$ is orthogonal (respectively unitary) if and only if $[T]^{\mathcal{B}}_{\mathcal{B}} \in O(n)$ (respectively $[T]^{\mathcal{B}}_{\mathcal{B}} \in U(n)$).
+\end{proposition}
+
+Note that $\forall \, A \in O(n)$ we have $\det A = \pm 1$. Indeed,
+\[
+	1 = \det I = \det (A \, A^T) = \det A \cdot \det A.
+\]
+Similarly, $\forall \, A \in U(n)$, $\vert \underbrace{\det A}_{\displaystyle \in \mathbb{C}} \vert = 1$. Indeed,
+\[
+	1 = \det (A \, A^*) = \det A \cdot \det \overline{A}^T = \det A \cdot \det \overline{A} = \det A \cdot \overline{\det A} = \vert \det A \vert ^2.
+\]
+
+\begin{definition}{Special Orthogonal/Unitary Group}{special_orth_grp}
+	The set
+	\[
+		SO(n) := \{A \in O(n) \;|\; \det A = 1\} \subseteq O(n) \subseteq GL_n(\mathbb{R})
+	\]
+	is called the \textbf{special orthogonal group}.
+	
+	The set
+	\[
+		SU(n) := \{A \in U(n) \;|\; \det A = 1\} \subseteq U(n) \subseteq GL_n(\mathbb{C})
+	\]
+	is called the \textbf{special unitary group}.
+\end{definition}
+
+\begin{proposition}{Group Structure of $O(n)$/$SO(n)$/$U(n)$/$SU(n)$}{grp_struc_son}
+	Let $G = O(n), SO(n), U(n), SU(n)$. Then:
+	\begin{enumerate}
+		\item $I_n \in G$.
+		\item $\forall \, A,B \in G : \; A\cdot B \in G$.
+		\item $\forall \, A \in G :\; A^{-1} \in G$.
+	\end{enumerate}
+\end{proposition}
+
+\subsection{Classification of the Elements of $O(2), O(3)$ etc.}
+\begin{lemma}{Eigenvalue of an Orthogonal Matrix}{eigval_orth_mat}
+	Let $A \in O(n)$. If $\lambda$ is an eigenvalue of $A$, then $\lambda = \pm 1$.
+\end{lemma}
+
+\begin{proposition}{Classification of the Elements of $O(2)$}{rot_mat}
+	Let $A \in O(2)$.
+	\begin{enumerate}
+		\item If $\det A = 1$, then $\exists \, \theta \in [0, 2\pi)$ s.t.
+		\[
+			A = \begin{pmatrix}
+				\cos \theta & -\sin \theta\\
+				\sin \theta & \cos \theta
+			\end{pmatrix} := R_{\theta}.
+		\]
+		The map $T_A:\mathbb{R}^2 \to \mathbb{R}^2$ is an anti-clockwise rotation by the angle $\theta$.
+		\item If $\det A = -1$, then there exists a basis $\mathcal{B} = (v_1, v_2)$ for $\mathbb{R}^2$ s.t. $T_A: \mathbb{R}^2 \to \mathbb{R}^2$ has the following representation in the basis $\mathcal{B}$
+		\begin{equation}
+			\label{eq:mirror_mat}
+			[T_A]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+				1 & 0\\
+				0 & -1
+			\end{pmatrix}.
+		\end{equation}
+		In other words $T_A$ performs a reflection w.r.t. the line $l = \operatorname{Sp}(v_1)$. Moreover, $\exists \, \theta \in [0, 2\pi)$ s.t. 
+		\[
+			A = \begin{pmatrix}
+				\cos \theta & \sin \theta\\
+				\sin \theta & - \cos \theta
+			\end{pmatrix} 
+			= R_{\theta} \cdot \begin{pmatrix}
+				1 & 0 \\
+				0 & -1
+			\end{pmatrix}.
+		\]
+		The basis $\mathcal{B}$ for which Equation \eqref{eq:mirror_mat} holds, is given by
+		\[
+			v_1 = \begin{pmatrix}
+				\cos \tfrac{\theta}{2}\\
+				\sin \tfrac{\theta}{2}
+			\end{pmatrix}, \, 
+			v_2 = \begin{pmatrix}
+				\cos(\tfrac{\theta}{2} + \tfrac{\pi}{2})\\
+				\sin (\tfrac{\theta}{2} + \tfrac{\pi}{2})
+			\end{pmatrix}.
+		\]
+	\end{enumerate}
+\end{proposition}
+
+\textbf{Summary:}
+\begin{align*}
+	SO(2) &= \text{ rotations}\\
+	O(2) \setminus SO(2) &= \text{ reflections}.
+\end{align*}
+
+\begin{corollary}{}{cor_rot_mat}
+	Let $V$ be a 2-dimensional Euclidean space and $T:V \to V$ a linear isometry. Then $\det T = \pm 1$. Moreover, there exists an orthonormal basis $\mathcal{B}$ for $V$ s.t.
+	\begin{enumerate}
+		\item If $\det T = 1$, then $[T]^{\mathcal{B}}_{\mathcal{B}} = R_{\theta}$.
+		\item If $\det T = -1$, then
+		\[
+			[T]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+				1 & 0 \\
+				0 & -1
+			\end{pmatrix}.
+		\]
+	\end{enumerate}
+\end{corollary}
+
+\begin{proposition}{\textcolor{red}{Classification of the Elements of $SO(3)$}}{clas_so3}
+	Let $A \in SO(3)$. Then 1 is an eigenvalue of $A$. Moreover, there exists an orthonormal basis $\mathcal{B} = (v_1, v_2, v_3)$ and $\theta \in [0, 2\pi)$ s.t.
+	\[
+		[T_A]^{\mathcal{B}}_{\mathcal{B}} = 
+		\left(
+		\begin{array}{c|cc}
+			1 & 0 & 0 \\
+			\hline
+			0 & \multicolumn{2}{c}{\smash{\lower2ex\hbox{$R_\theta$}}} \\
+			0 & & 
+		\end{array}
+		\right).
+	\]
+	So, $T_A$ is a rotation with angle $\theta$ around the axis $\operatorname{Sp}(v_1)$. Moreover,
+	\begin{enumerate}
+		\item[(a)] If $-1$ is an eigenvalue of $A$, then $\theta = \pi$, hence
+		\[
+			[T_A]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+				1 & 0& 0\\
+				0 & -1 & 0\\
+				0 & 0 & -1
+			\end{pmatrix}.
+		\]
+		\item[(b)] If -1 is \textbf{not} an eigenvalue of $A$ ($\Longleftrightarrow$ 1 is the only eigenvalue), then $\theta \neq \pi$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	The characteristic polynomial $p_A(x)$ of $A$ is a polynomial of degree 3 and with real coeffiecients. By the intermediate value theorem (Analysis I) there exists a real zero $\lambda \in \mathbb{R}$(,i.e., $p_A(\lambda) = 0$). Therefore, $A$ has at least one real eigenvalue. By Lemma \ref{lem*eigval_orth_mat}, $\lambda = \pm 1$. Let $v_1 \in \mathbb{R}^3 \setminus \{0\}$ be an eigenvector of $\lambda$. We can normalize $v_1$ and still have an eigenvector for $\lambda$. So, let's assume $\Vert v \Vert = 1$. Consider the subspace
+	\[
+		L := v_1^{\perp} = \{v \in \mathbb{R}^3 \; |\; \langle v, v_1 \rangle\}.
+	\]
+	Since $A$ is orthogonal, we have that
+	\[
+		\forall \, v \in L :\; Av \in L,
+	\]
+	i.e., $T_A(L) \subseteq L$, i.e., $L$ is invariant under $T_A$. Indeed, if $v \in L$, then since $A \in O(3)$
+	\begin{align*}
+		0 &= \langle v, v_1 \rangle = \langle Av, Av_1\rangle = \langle Av, \pm v_1\rangle = \pm \langle Av, v_1\rangle\\
+		\Longrightarrow \quad Av &\in L.
+	\end{align*}
+	We also have $\mathbb{R}^3 = \operatorname{Sp}(v_1) \oplus L$, hence $\dim L = 2$.
+	
+	Now $T_A|_{L}:L \to L$ is a linear isometry. Let $\mathcal{L} = (w_1, w_2)$ be an orthonormal basis for $L$. By Proposition \ref{prop*equiv_cond_orth_map}, we have that
+	\[
+		Q := [T_A|_{L}]^{\mathcal{L}}_{\mathcal{L}} \in O(2).
+	\]
+	
+	\underline{Case (a):} $\lambda = 1$. Take $\mathcal{B} = (v_1, w_1, w_2)$. Then
+	\[
+		[T_A]^{\mathcal{B}}_{\mathcal{B}} = 
+		\left(
+		\begin{array}{c|cc}
+			1 & 0 & 0 \\
+			\hline
+			0 & \multicolumn{2}{c}{\smash{\lower2ex\hbox{$Q$}}} \\
+			0 & & 
+		\end{array}
+		\right).
+	\]
+	Now, since $A \in SO(3)$, we have
+	\begin{align*}
+		1 &= \det A = \det(T_A) = 1 \cdot \det Q\\
+		\Longrightarrow \quad \det Q = 1.
+	\end{align*}
+	So, $Q \in SO(2)$. By Proposition \ref{prop*clas_so3}, $\exists \, \theta \in [0, 2\pi)$ s.t. $Q = R_{\theta}$. Therefore,
+	\[
+		[T_A]^{\mathcal{B}}_{\mathcal{B}} = 
+		\left(
+		\begin{array}{c|cc}
+			1 & 0 & 0 \\
+			\hline
+			0 & \multicolumn{2}{c}{\smash{\lower2ex\hbox{$R_\theta$}}} \\
+			0 & & 
+		\end{array}
+		\right).
+	\]
+	
+	\underline{Case (b):} $\lambda = -1$. By the same argument as for case (a), we get that
+	\begin{align*}
+		1 &= \det A = (-1)\cdot \det (T_A|_{L})\\
+		\Longrightarrow \quad \det(T_A|_{L}) = -1.
+	\end{align*}
+	By Corollary \ref{cor*rot_mat}, there exists an orthonormal basis $\mathcal{L} = (w_1, w_2)$ for $L$ s.t.
+	\[
+		[T_A|_{L}]^{\mathcal{L}}_{\mathcal{L}} = \begin{pmatrix}
+			1 & 0\\
+			0 & -1
+		\end{pmatrix}.
+	\]
+	Take $\mathcal{B}' = (v_1, w_1, w_2)$. Then
+	\[
+		[T_A]^{\mathcal{B}'}_{\mathcal{B}'} = \begin{pmatrix}
+			-1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & -1
+		\end{pmatrix}.
+	\]
+	And for $\mathcal{B} = (w_1, v_1, w_2)$ we have
+	\[
+		[T_A]^{\mathcal{B}}_{\mathcal{B}} = 
+		\begin{pmatrix}
+			1 & 0 & 0\\
+			0 & -1 & 0\\
+			0 & 0 & -1
+		\end{pmatrix}
+		=
+		\left(
+		\begin{array}{c|cc}
+			1 & 0 & 0 \\
+			\hline
+			0 & \multicolumn{2}{c}{\smash{\lower2ex\hbox{$R_\pi$}}} \\
+			0 & & 
+		\end{array}
+		\right).
+	\]
+	Note that in case (b), 1 is an eigenvalue of $A$ as well. \qedhere
+\end{proof}
+
+\begin{proposition}{Classification of $O(3) \setminus SO(3)$}{clas_o3minusso3}
+	Let $A \in O(3)\setminus SO(3)$. Then there exists an orthonormal basis $\mathcal{B} = (v_1, v_2, v_3)$ for $\mathbb{R}^3$ s.t.
+	\[
+		[T_A]^{\mathcal{B}}_{\mathcal{B}}
+		=
+		\left(
+		\begin{array}{c|cc}
+			-1 & 0 & 0 \\
+			\hline
+			0 & \multicolumn{2}{c}{\smash{\lower2ex\hbox{$R_\theta$}}} \\
+			0 & & 
+		\end{array}
+		\right)
+	\]
+	for some $\theta \in [0, 2\pi)$. (So $T_A$ does a rations by $\theta$ around $\operatorname{Sp}(v_1)$, followed by a reflection w.r.t. $\operatorname{Sp}(v_2, v_3)$.)
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

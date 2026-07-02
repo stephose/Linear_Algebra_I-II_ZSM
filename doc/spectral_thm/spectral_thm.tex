@@ -1,0 +1,35 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,fit, shapes.geometric}
+
+\begin{document}
+	\tikzstyle{operation} = [circle, text centered, minimum width=0.1cm, draw=black, font=\small]
+	\tikzstyle{impl} = [-Implies, double, double distance=2pt]
+	\tikzstyle{equiv} = [Implies-Implies, double, double distance=2pt]
+	
+	\begin{tikzpicture}
+		\node (c) {$\mathbb{C}$};
+		\node (r) [right = 7cm of c] {$\mathbb{R}$};
+		
+		\node (odiagc) [below=1cm of c] {orthogonally diagonalizable};
+		\node (normalc) [below left=1cm of odiagc, xshift=1cm] {normal};
+		\node (selfadjc) [below right=1cm of odiagc, xshift=-1cm] {self adjoint};
+		
+		\node (odiagr) [below=1cm of r] {orthogonally diagonalizable};
+		\node (normalr) [below left=1cm of odiagr, xshift=1cm] {normal};
+		\node (selfadjr) [below right=1cm of odiagr, xshift=-1cm] {self adjoint};
+		
+		\node (linestart) [right=3.7cm of c, yshift=0.5cm] {};
+		\node (lineend) [below=4cm of linestart.center] {};
+		
+		\draw (linestart.center) -- (lineend.center);
+		\draw[impl] (selfadjc) -- (normalc);
+		\draw[impl] (selfadjc) -- (odiagc.east);
+		\draw[equiv] (normalc) -- (odiagc.west);
+		\draw[impl] (odiagr.west) -- (normalr);
+		\draw[impl] (selfadjr) -- (normalr);
+		\draw[equiv] (odiagr.east) -- (selfadjr);
+	\end{tikzpicture}
+\end{document}

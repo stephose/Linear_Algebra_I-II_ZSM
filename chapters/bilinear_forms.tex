@@ -1,0 +1,99 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Bilinear \& Quadratic Forms}
+\begin{definition}{Bilinear Form}{bilin_form}
+	Let $V$ be a vector space over $K$. A function $B: V \times V \to K$ is called a \textbf{bilinear form} if the following two conditions are satisfied:
+	\begin{enumerate}
+		\item $\forall \, w \in V$ the map $B(\cdot , w):V \to K, \quad v \mapsto B(v, w)$ is linear.
+		\item $\forall \, v \in V$ the map $B(v, \cdot):V \to K, \quad w \mapsto B(v, w)$ is linear.
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}{Matrix Representation of a Bilinear Form}{mat_bilin_form}
+	Let $V$ be a vector space over $K$ and $\mathcal{C} = (e_1, \hdots , e_n)$ a basis for $V$. Let $B: V \times V \to K$ be a bilinear form. Then $\exists \, [B]_{\mathcal{C}} \in M_{n \times n}(K)$ s.t.
+	\[
+		B\Big(\sum_{i=1}^{n} c_ie_i, \sum_{j=1}^{n}d_je_j\Big) = 
+		\begin{pmatrix}
+			c_1 & \hdots & c_n
+		\end{pmatrix}
+		\cdot [B]_{\mathcal{C}} \cdot
+		\begin{pmatrix}
+			d_1\\
+			\vdots\\
+			d_n
+		\end{pmatrix} \qquad \forall \, c_i, d_j \in K.
+	\]
+	The matrix $[B]_{\mathcal{C}}$ is called the matrix representation of $B$ in the basis $\mathcal{C}$.
+\end{lemma}
+
+We saw also that for $T\in \operatorname{End}(V)$ and $\mathcal{C}$ a basis for $V$ we have a matrix representation $[T]^{\mathcal{C}}_{\mathcal{C}} \in M_{n\times n}(K)$, and that if $\mathcal{D}$ is another basis for $V$, then
+\begin{equation}
+	\label{eq:trans_mat}
+	[T]^{\mathcal{D}}_{\mathcal{D}} = \underbrace{[id_V]^{\mathcal{C}}_{\mathcal{D}}}_{\displaystyle = \big([id_V]^{\mathcal{D}}_{\mathcal{C}}\big)^{-1}} \cdot [T]^{\mathcal{C}}_{\mathcal{C}} \cdot [id_V]^{\mathcal{D}}_{\mathcal{C}}.
+\end{equation}
+(Corollary \ref{cor*change_base_endo}).
+What happens for bilinear forms?
+
+\begin{lemma}{Change of Bases for a Bilinear Form}{change_base_bilin}
+	Let $V$ be a finite dimensional vector space over $K$ and $\mathcal{C}, \mathcal{D}$ be two bases for $V$. Let $B:V \times V \to K$ be a bilinear form. Then
+	\[
+		[B]_{\mathcal{D}} = \big([id_V]^{\mathcal{D}}_{\mathcal{C}}\big)^T\cdot [B]_{\mathcal{C}} \cdot [id_V]^{\mathcal{D}}_{\mathcal{C}}.
+	\]
+	(This is quite different from Equation \eqref{eq:trans_mat}). 
+\end{lemma}
+
+\begin{definition}{Symmetric/Positive Definite Bilinear Form \& Quadratic Form}{symm_bilin_form}
+	\begin{enumerate}
+		\item A bilinear form $B:V \times V\to K$ is called \textbf{symmetric} if
+		\[
+			\forall \, v,w \in V : \; B(v, w) = B(w, v).
+		\]
+		\item Assume that $K = \mathbb{R}$. A bilinear form $B:V \times V \to K$ is called \textbf{positive definite} if 
+		\[
+			\forall \, v\in V:\; B(v, v) > 0.
+		\]
+		\item For a bilinear form $B:V \times V \to K$, we define
+		\[
+			q_B:V \to K, \quad q_B(v) := B(v, v). 
+		\]
+		We call $q_B$ the \textbf{quadratic form} associated to $B$. Sometimes we just denote it by $q$.
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}
+	Note that $B \in M_{n\times n}(K)$ and $B^T \in M_{n\times n}(K)$ give the same quadratic form $q:K^n \to K$. Indeed, $\forall \, v\in K^n$
+	\[
+		q_B(v) = v^T B \, v = (v^T B \, v)^T = v^T B^T v = q_{B^T}(v),
+	\]
+	where we used that $q_B(v)$ is a scalar.
+\end{remark}
+
+Assume now that $2 \neq 0$ in $K$, then (i.e., $1 + 1 \neq 0$). Then also $\tfrac{1}{2}(B + B^T)$ gives the same quadratic form as $B$.
+
+\textbf{Conclusion:} if $2 \neq0$ in $K$, then for the discussion on quadratic forms $q:K^n \to K$, we can assume they all come from symmetric matrices / bilinear forms.
+
+\begin{proposition}{Polarization Identity}{pol_id}
+	Assume $2 \neq 0$ in $K$. (note that then also $4 \neq 0$.) If $B$ is symmetric and defines $q := q_B$, then $\forall \, v, w \in V$ we have
+	\begin{enumerate}
+		\item 
+		\[
+			B(v, w) = \frac{1}{4} q(v + w) - \frac{1}{4} q(v - w).
+		\]
+		\item 
+		\[
+			B(v, w) = \frac{1}{2}\big(q(v + w) - q(v) - q(w)\big).	
+		\]
+	\end{enumerate}
+\end{proposition}
+
+
+
+
+
+

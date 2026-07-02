@@ -42,9 +42,6 @@ Over $K = \mathbb{R}$ the answer is \textbf{no!}, e.g.,
 \]
 $T_A:\mathbb{R}^2 \to \mathbb{R}^2$ is a clockwise rotation by 90°, so there exist no eigenvalues in $\mathbb{R}$. But $AA^* = A^*A = I$.
 
-\begin{theorem}{Spectral Theorem over $\mathbb{C}$}{spec_theo_c}
-	Let $V$ be a finite dimensional inner product space over $\mathbb{C}$ and $T:V \to V$ a linear map. Then $T$ is orthogonally diagonalizable if and only if $T$ is normal.
-\end{theorem}
 
 \begin{lemma}{\textcolor{red}{Properties of a Normal Endomorphism}}{prop_normal_endo}
 	Let $V$ be a finite dimensional inner product space over $K = \mathbb{R}$ or $\mathbb{C}$. Let $T:V \to V$ be a normal endomorphism. Then:
@@ -67,5 +64,148 @@ $T_A:\mathbb{R}^2 \to \mathbb{R}^2$ is a clockwise rotation by 90°, so there ex
 		\Vert Tv \Vert = \Vert T^*v\Vert.
 	\]
 	
-	\textbf{2)} Let $\lambda \in K$. By properties of adjoint maps and the normality of $T$ we have that
+	\textbf{2)} Let $\lambda \in K$. By properties of adjoint maps we have that
+	\begin{equation}
+		\label{eq:prop_normal_endo1}
+		(T - \lambda \cdot id_V) \circ (T- \lambda \cdot id_V)^* = (T - \lambda \cdot id_V) \circ (T^* - \overline{\lambda} \cdot id_V) = T \circ T^* - \overline{\lambda}\cdot T - \lambda \cdot T^* + \lambda \overline{\lambda} \cdot id_V,
+	\end{equation}
+	and 
+	\begin{equation}
+		\label{eq:prop_normal_endo2}
+		(T - \lambda\cdot id_V)^* \circ (T - \lambda \cdot id_V) = (T^* - \overline{\lambda}\cdot id_V)\circ (T - \lambda \cdot id_V) = T^* \circ T - \lambda \cdot T^* - \overline{\lambda}\cdot T + \overline{\lambda}\lambda \cdot id_V.
+	\end{equation}
+	By the normality of $T$ we get that Equation \eqref{eq:prop_normal_endo1} = \eqref{eq:prop_normal_endo2}, so $(T - \lambda \cdot id_V)$ is normal.
+	
+	\textbf{3)} Let $v$ be an eigenvector of $T$ with eigenvalue $\lambda$. Then $(T - \lambda \cdot id_V) v = 0$. By \textbf{2)}, $(T - \lambda \cdot id_V)$ is normal. Hence by \textbf{1)} we have
+	\begin{align*}
+		\Vert (T^* - \overline{\lambda} \cdot id_V)v \Vert &= \Vert (T - \lambda \cdot id_V)^* v \Vert = \Vert (T - \lambda \cdot id_V)v \Vert = 0\\
+		\Longrightarrow \quad (T^* - \overline{\lambda} \cdot id_V)v = 0.
+	\end{align*}
+	This proves that $v$ is an eigenvector of $T^*$ with eigenvalue $\overline{\lambda}$.
+	
+	\textbf{4)} Let $v_1, v_2$ be eigenvectors of $T$ with eigenvalues $\lambda_1, \lambda_2$ respectively, where $\lambda_1 \neq \lambda_2$. Then, by properties of adjoint maps and \textbf{3)}, we have that
+	\begin{align*}
+		\lambda_1 \langle v_1, v_2 \rangle &= \langle \lambda_1 v_1, v_2 \rangle = \langle Tv_1, v_2 \rangle 
+		= \langle v_1, T^*v_2 \rangle = \langle v_1, \overline{\lambda}_2 v_2 \rangle = \lambda_2 \langle v_1, v_2 \rangle\\
+		\Longrightarrow \quad (\lambda_1 - \lambda_2) \langle v_1, v_2 \rangle &= 0.
+	\end{align*}
+	Since $\lambda_1 \neq \lambda_2$, we conclude that $\langle v_1, v_2 \rangle = 0$. \qedhere
 \end{proof}
+
+
+\begin{theorem}{\textcolor{red}{Spectral Theorem over $\mathbb{C}$}}{spec_theo_c}
+	Let $V$ be a finite dimensional inner product space over $\mathbb{C}$ and $T:V \to V$ a linear map. Then $T$ is orthogonally diagonalizable if and only if $T$ is normal.
+\end{theorem}
+
+\begin{proof}
+	\underline{$\Longrightarrow$:} Has already been proven in Lemma \ref{lem*consq_orth_diag}
+	
+	\underline{$\Longleftarrow$:} By the fundamental Theorem of Algebra \ref{theo*fund_thm_alg}, $T$ is trigonalizable, i.e., there exists a basis $\mathcal{C} = (u_1, \hdots , u_n)$ for $V$ s.t. $[T]^{\mathcal{C}}_{\mathcal{C}}$ is an upper triangular matrix. By applying the Gram-Schmidt orthogonalization process \ref{theo*gram_schm_orth_pro} to the basis $\mathcal{C}$ we obtain a new basis $\mathcal{B} = (v_1, \hdots , v_n)$ which is orthonormal and s.t. $[T]^\mathcal{B}_\mathcal{B}$ is still upper triangular, b.c. $\operatorname{Sp}(u_1, \hdots , u_j) = \operatorname{Sp}(v_1, \hdots , v_j)$ for every $1 \leq j \leq n$.
+	
+	We claim that $[T]^{\mathcal{B}}_{\mathcal{B}}$ is actually diagonal. To see this write $[T]^{\mathcal{B}}_{\mathcal{B}} = (a_{ij})$. Since $\mathcal{B}$ is orthonormal, we have $\Vert Tv_1 \Vert^2 = \vert a_{11} \vert^2$. Since $[T^*]^{\mathcal{B}}_{\mathcal{B}} = \big([T]^{\mathcal{B}}_{\mathcal{B}}\big)^*$ we also have
+	\begin{align*}
+		[T^*]^{\mathcal{B}}_{\mathcal{B}} &= \begin{pmatrix}
+			\overline{a}_{11} & 0 & \hdots & 0\\
+			\overline{a}_{12} & \overline{a}_{22} & \ddots & \vdots\\
+			\vdots & \vdots & \ddots & 0\\
+			\overline{a}_{1n} & \overline{a}_{2n} & \hdots & \overline{a}_{nn}
+		\end{pmatrix}\\
+		\Longrightarrow \quad \Vert T^* v_1 \Vert^2 &= \sum_{k=1}^{n} \vert \overline{a}_{1k} \vert^2 = \vert a_{11}\vert^2 + \vert a_{12}\vert^2 + \hdots + \vert a_{1n}\vert^2.
+	\end{align*}
+	As $T$ is normal, we have that $\Vert T v_1 \Vert^2 = \Vert T^*v_1 \Vert ^2$, hence $a_{12} = \hdots = a_{1n} = 0$. This shows that
+	\[
+		[T]^{\mathcal{B}}_{\mathcal{B}} = \begin{pmatrix}
+			\overline{a}_{11} & 0 & \hdots & 0\\
+			0 & \ast & \hdots & \ast\\
+			\vdots & \ddots & \ddots & \vdots\\
+			0 & \hdots & 0 & \ast
+		\end{pmatrix}.
+	\]
+	By the same argumentation, we have that $\Vert Tv_2 \Vert^2 = \vert a_{22}\vert^2$ and $\Vert T^* v_2 \Vert^2 = \vert a_{22}\vert^2 + \vert a_{23} \vert^2 + \hdots \vert a_{2n}\vert^2$. As $\Vert Tv_2 \Vert = \Vert T^*v_2 \Vert$ we obtain $a_{23} = \hdots = a_{2n} = 0$. 
+	
+	We can continue the proof by induction. Suppose the claim holds for $k$. So, we have that $\Vert T v_{k+1} \Vert^2 = \vert a_{k+1,k+1}\vert^2$, as $a_{l, k+1} = 0 \quad \forall l < k+1$. Since $[T^*]^{\mathcal{B}}_{\mathcal{B}} = \big([T]^\mathcal{B}_{\mathcal{B}}\big)^*$, we have that 
+	\[
+		\Vert T^*v_{k+1} \Vert^2 = \vert a_{k+1, k+1}\vert^2 + \hdots + \vert a_{k+1, n}\vert^2.
+	\]
+	Since $T$ is normal, we get that $\Vert T^*v_{k+1}\Vert = \Vert Tv_{k+1}\Vert$. Therefore, we conclude that
+	\[
+		\vert a_{k+1, k+2}\vert = \hdots = \vert a_{k+1, n} \vert = 0.
+	\]
+	This proves the claim. \qedhere
+\end{proof}
+
+\begin{remark}
+	In the proof above we used $K = \mathbb{C}$ only, when we said that $T$ is trigonalizable. Therefore, we arrive at the following corollary.
+\end{remark}
+
+\begin{corollary}{}{spec_thm_c_cor}
+	Let $V$ be a finite dimensional inner product space over $\mathbb{R}$ and $T:V \to V$ an endomorphism, which is normal. If $T$ is trigonalizable, then $T$ is orthogonally diagonalizable.
+\end{corollary}
+
+We've seen that over $\mathbb{R}$ $T \in \operatorname{End}(V)$ is normal $\not\Longrightarrow$ $T$ is orthogonally diagonalizable.
+
+\begin{definition}{Self Adjoint}{self_adj}
+	Let $V$ be an inner product space over $K = \mathbb{R}$ or $\mathbb{C}$, and $T \in \operatorname{End}(V)$. $T$ is called \textbf{self adjoint} if $T^* = T$.
+	
+	A matrix $A\in M_{n\times n}(K)$ is called \textbf{self adjoint} if $A^* = A$. (Over $\mathbb{R}$ a self adjoint matrix is a symmetric matrix.) 
+\end{definition}
+
+\begin{lemma}{A Condition for Self Adjoint}{cond_self_adj}
+	Let $V$ be a finite dimensional inner product space over $\mathbb{R}$ and $T \in \operatorname{End}(V)$ which is orthogonally diagonalizable. Then $T$ is self adjoint.
+\end{lemma}
+
+\begin{lemma}{}{equiv_self_adj}
+	Let $V$ be an inner product space over $K = \mathbb{R}$ or $\mathbb{C}$. Then $T \in \operatorname{End}(V)$ is self adjoint if and only if for every orthonormal basis $\mathcal{B}$ of $V$, the matrix $[T]^{\mathcal{B}}_{\mathcal{B}}$ is self adjoint.
+\end{lemma}
+
+\begin{theorem}{Spectral Theorem over $\mathbb{R}$}{spec_thm_r}
+	Let $V$ be an Euclidean space(, i.e., inner prduct space over $\mathbb{R}$) of finite dimension. Then $T$ is orthogonally diagonalizable if and only if $T$ is self adjoint.
+\end{theorem}
+
+For the proof of the above Theorem the following Lemma is needed.
+
+\begin{lemma}{Properties of Self Adjoint Maps}{prop_self_adj_map}
+	Let $V$ be an inner productd space over $K = \mathbb{R}$ or $\mathbb{C}$ and $T \in \operatorname{End}(V)$ be self adjoint. Then
+	\begin{enumerate}
+		\item All eigenvalues of $T$ are real.
+		\item $p_T$ factors into a product of linear factors over $K$.
+	\end{enumerate}
+\end{lemma}
+
+In the Figure below we illustrated the logical relations regarding the Spectral theorem.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{doc/spectral_thm/spectral_thm.pdf}
+\end{figure}
+
+
+\begin{theorem}{Spectral Theorem for Matrices}{spec_thm_mat}
+	\begin{enumerate}
+		\item If $A \in M_{n\times n}(\mathbb{C})$ is normal, then $\exists \, U \in U(n)$ s.t.
+		\[
+			\underbrace{U^{-1}}_{\displaystyle = U^*} A \, U
+		\]
+		is diagonal.
+		\item If $A \in M_{n\times n}(\mathbb{R})$ is a symmetric matrix, then $\exists \, O \in O(n)$ s.t.
+		\[
+			\underbrace{O^{-1}}_{\displaystyle = O^T}A\, O
+		\]
+		is diagonal.
+	\end{enumerate}
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
