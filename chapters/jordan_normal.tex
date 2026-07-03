@@ -1,0 +1,124 @@
+% 
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = linalg_I-II_summary.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Jordan Normal Form}
+
+\begin{definition}{Jordan Matrix}{jord_mat}
+	Let $\lambda \in K, n \in \mathbb{Z}_{\geq 1}$. Define
+	\[
+		J_{\lambda , n} = 
+		\begin{pmatrix}
+			\lambda & 1 & 0 & \hdots  & 0\\
+			0 & \ddots & \ddots & \ddots & \vdots\\
+			\vdots & \ddots & \ddots & \ddots  & 0\\
+			\vdots  &  & \ddots & \ddots & 1\\
+			0 & \hdots & \hdots & 0 & \lambda 
+		\end{pmatrix} \in M_{n\times n}(K).
+	\]
+	For $n = 1$, $J_{\lambda, 1} = (\lambda)$. For $n = 2$,
+	\[
+		J_{\lambda, 2} = 
+		\begin{pmatrix}
+			\lambda & 1\\
+			0 & \lambda
+		\end{pmatrix}.
+	\]
+	For $n = 3$,
+	\[
+		J_{\lambda, 3} = 
+		\begin{pmatrix}
+			\lambda & 1 & 0\\
+			0 & \lambda & 1\\
+			0 & 0 & \lambda
+		\end{pmatrix}.
+	\]
+	$J_{\lambda, n}$ is called the $n$-dimensional \textbf{Jordan matrix} with eigenvalue $\lambda$.
+\end{definition}
+
+\begin{lemma}{Properties of the Jordan Matrix}{prop_jord_mat}
+	\begin{enumerate}
+		\item $\lambda$ is the only eignevalue of $J_{\lambda, n}$
+		\item $p_{J_{\lambda,n}}(x) = (\lambda - x)^n$, and $m_a(J_{\lambda, n}, \lambda) = n$.
+		\item $m_g(J_{\lambda, n}, \lambda) = 1$. In fact $\operatorname{Eig}_{\lambda}(J_{\lambda, n}) = \operatorname{Sp}(e_1)$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{theorem}{Jordan Normal Form (JNF)}{jnf}
+	Let $V$ be an $n$-dimensional vector space over $K$ and $T \in \operatorname{End}(V)$ s.t. $p_T(x)$ splits as a product of linear factors in $K[x]$ (e.g. for $K = \mathbb{C}$ this always happens). Then there exists a basis $\mathcal{B}$ for $V$ s.t.
+	\[
+		[T]^{\mathcal{B}}_{\mathcal{B}} = 
+		\begin{pmatrix}
+			J_{\lambda_1, n_1} & 0 & \hdots & 0\\
+			0 & J_{\lambda_2, n_2} & \ddots & \vdots\\
+			\vdots & \ddots & \ddots & 0\\
+			0 & \hdots & 0 & J_{\lambda_k, n_k}
+		\end{pmatrix},
+	\]
+	where $k \geq 1, \lambda_1, \hdots , \lambda_k \in K, n_1, \hdots , n_k \geq 1, n_1 + \hdots + n_k = n$. $\mathcal{B}$ is called \textbf{a} Jordan basis for $T$.
+	Moreover, up to permutation, the blocks $J_{\lambda_1, n_1}, \hdots , J_{\lambda_k, n_k}$ are unique.
+\end{theorem}
+For an example see the lecture notes.
+
+We can write $J_{\lambda, n} = \lambda \cdot I_n + N$, where
+\[
+	N = 
+	\begin{pmatrix}
+		0 & 1 & 0 & \hdots & 0\\
+		\vdots & \ddots & \ddots & \ddots & \vdots\\
+		\vdots & & \ddots & \ddots & 0\\
+		\vdots &  & & \ddots & 1\\
+		0 & \hdots & \hdots & \hdots & 0  
+	\end{pmatrix} = J_{0, n}
+\]
+
+\begin{lemma}{Powers of $N$}{pow_n}
+	\begin{enumerate}
+		\item 
+		\[
+			N^2 = 
+			\begin{pmatrix}
+				0 & 0 & 1 & \hdots & 0\\
+				\vdots & \ddots & \ddots & \ddots & \vdots\\
+				\vdots & & \ddots & \ddots & 1\\
+				\vdots &  & & \ddots & 0\\
+				0 & \hdots & \hdots & \hdots & 0 
+			\end{pmatrix}, \; N^3 = \hdots, \quad  \hdots, N^n = 0,
+		\]
+		$N^k = 0 \quad \forall \, k \geq n$. In other words, $N^k$ has 1's in the $k$-th diagonal above the central diagonal and 0's everywhere else. Note also that $N$ is nilpotent.
+		\item $\forall k \geq 1$ we have
+		\[
+			J_{\lambda, n}^k = \sum_{j=0}^{k} \binom{k}{j} \lambda^{k - j} N^j.
+		\]
+	\end{enumerate}
+\end{lemma}
+
+\begin{corollary}{Geometric Multiplicity and Minimal Polynomial of JNF}{geom_mult_jnf}
+	Suppose $T \in \operatorname{End}(V)$, admits a matrix representation
+	\[
+		[T]^{\mathcal{B}}_{\mathcal{B}} = 
+		\begin{pmatrix}
+			J_{\lambda_1, n_1} & 0 & \hdots & 0\\
+			0 & J_{\lambda_2, n_2} & \ddots & \vdots\\
+			\vdots & \ddots & \ddots & 0\\
+			0 & \hdots & 0 & J_{\lambda_k, n_k}
+		\end{pmatrix}
+	\]
+	in some basis $\mathcal{B}$. Then for every eigenvalue $\lambda$ of $T$ the geometric multiplicity $m_g(\lambda)$ equals the number of blocks in $[T]^{\mathcal{B}}_{\mathcal{B}}$ labeled with $\lambda$. In other words, 
+	\[
+		m_g(\lambda) = \left|\{j \;|\; \lambda_j = \lambda, \quad 1 \leq j \leq k\}\right|.
+	\] 
+	The minimal polynomial $\mu_T(x)$ is
+	\[
+		\mu_T(x) = \prod_{\lambda = \text{eigenvalue}} (x - \lambda)^{S(\lambda)},
+	\]
+	where 
+	\begin{align*}
+		S(\lambda) &= \text{size of the largest block labeled by } \lambda\\
+		&= \max\{n_j \;|\; \lambda_j = \lambda, \quad 1 \leq j \leq k\}.
+	\end{align*}
+\end{corollary}

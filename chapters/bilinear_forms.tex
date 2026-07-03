@@ -29,7 +29,7 @@
 			d_n
 		\end{pmatrix} \qquad \forall \, c_i, d_j \in K.
 	\]
-	The matrix $[B]_{\mathcal{C}}$ is called the matrix representation of $B$ in the basis $\mathcal{C}$.
+	The matrix $[B]_{\mathcal{C}} = B(e_i, e_j)$ is called the matrix representation of $B$ in the basis $\mathcal{C}$.
 \end{lemma}
 
 We saw also that for $T\in \operatorname{End}(V)$ and $\mathcal{C}$ a basis for $V$ we have a matrix representation $[T]^{\mathcal{C}}_{\mathcal{C}} \in M_{n\times n}(K)$, and that if $\mathcal{D}$ is another basis for $V$, then
@@ -92,6 +92,101 @@ Assume now that $2 \neq 0$ in $K$, then (i.e., $1 + 1 \neq 0$). Then also $\tfra
 	\end{enumerate}
 \end{proposition}
 
+\begin{theorem}{Sylvester's Inertia Theorem}{syl_inert_theo}
+	Let $B:V \times V \to K$ be a symmetric bilinear form on a vector space $V$ over $\mathbb{R}$, of dimension $n$. Then there exists a basis $\mathcal{C}$ for $V$ s.t.
+	\[
+		[B]_{\mathcal{C}} = 
+		\begin{pmatrix}
+			I_k & 0 & 0\\
+			0 & -I_l & 0\\
+			0 & 0 & 0
+		\end{pmatrix},
+	\]
+	for some $k,l \in \mathbb{Z}_{\geq 0}$ with $k + l \neq n$. Moreover, $k$ and $l$ do \textbf{not} depend on the basis $\mathcal{C}$ (they depend only on $B$). In fact
+	\begin{align*}
+		k &= \max\{\dim W \;|\; W \subseteq V \text{ is a subspace and } B|_{W \times W} \text{ is positive definite}\},\\
+		l &= \max\{\dim U \;|\; U \subseteq V \text{ is a subspace and } B|_{U \times U} \text{ is positive definite}\}, \\
+		n - (k + l) &= \max\{\dim Z \;|\; Z \subseteq V \text{ is a subspace and } B|_{Z \times V} \equiv 0\}.
+	\end{align*}
+\end{theorem}
+
+\begin{remark}
+	\begin{enumerate}
+		\item In the basis $\mathcal{C}$, the quadratic form $q$ associated to $B$ looks like
+		\[
+			q(x_1, \hdots , x_n) = x_1^2 + \hdots + x_k^2 - x_{k+1}^2 - \hdots - x_{k+l}^2.
+		\]
+		\item $k$ is called the positivity index of $B$, $l$ the negativity index, $n$ the nullity and $\sigma(B) := k - l$ is called the \textbf{signature of $B$}. We say $B$ is a bilinear form of type $(k,l)$.
+	\end{enumerate}
+\end{remark}
+
+\begin{theorem}{Sylvester's Inertia Theorem for Euclidean Spaces}{syl_theo_euclid}
+	Let $V$ be a finite dimensional Euclidean space of dimension $n$. Let $B:V \times V \to K$ be a symmetric bilinear form. Then there exists an \textbf{orthonormal} basis $\mathcal{C}$ for $V$ in which
+	\[
+		[B]_{\mathcal{C}} = 
+		\begin{pmatrix}
+			\eta_1 & 0 & \hdots & \hdots &\hdots &\hdots &\hdots &\hdots & 0\\
+			0 & \ddots & \ddots & & & & & & \vdots\\
+			\vdots & \ddots & \eta_k & \ddots & & & & & \vdots\\
+			\vdots & & \ddots & \eta_{k+1} & \ddots & & & & \vdots\\
+			\vdots & & &\ddots & \ddots & \ddots & & & \vdots\\
+			\vdots & & & & \ddots & \eta_{k+l} & \ddots & & \vdots\\
+			\vdots & & & & & \ddots &0 & \ddots &  \vdots \\
+			\vdots & & & & & & \ddots & \ddots & 0\\
+			0 & \hdots &\hdots &\hdots &\hdots &\hdots &\hdots & 0 &0
+		\end{pmatrix},
+	\]
+	where $k.l \in \mathbb{Z}_{\geq 0}$ and $k + l \leq n$, $\eta_1, \hdots , \eta_k > 0$, $\eta_{k+1}, \hdots , \eta_{k+l} < 0$. As before, $k,l$ are the positivity and negativity indices of $B$. Moreover, the scalars $\eta_1, \hdots , \eta_k, \eta_{k+1}, \hdots , \eta_{k+l}, 0 , \hdots , 0$ are independent of $\mathcal{C}$. They depend only on $B$ (and on the scalar product on $V$). They are the eigenvalues of $[B]_{\mathcal{D}}$ for every \textbf{orthonormal} basis $\mathcal{D}$ of $V$ (independent of $\mathcal{D}$ and on whether or not $[B]_{\mathcal{D}}$ is diagonal).
+\end{theorem}
+
+\begin{remark}
+	This theorem has a geometric meaning. If $q:\mathbb{R}^n \to \mathbb{R}$ is a quadratic form
+	\[
+		q(x_1, \hdots x_n) = \sum_{i=1}^{n} a_{ij} x_i x_j
+	\]
+	for some $a_{ij} \in \mathbb{R}$, then the set 
+	\[
+		Q = \{(x_1, \hdots , x_n) \in \mathbb{R}^n \;|\; q(x_1, \hdots , x_n) = C \in \mathbb{R}\}
+	\]
+	is called a quadric. The theorem tells us that there exists a linear isometry $T:\mathbb{R}^n \to \mathbb{R}^n$ s.t.
+	\[
+		T(Q) = \{(y_1, \hdots , y_n) \in \mathbb{R}^n \;|\; \underbrace{\eta_1 y_1^2 + \hdots + \eta_k y_k^2}_{\displaystyle \text{pos. coeffs.}} + \underbrace{\eta_{k+1}y_{k+1}^2 + \hdots + \eta_{k+l}y_{k+l}^2}_{\displaystyle \text{neg. coeffs.}} = C \in \mathbb{R} \}.
+	\]
+\end{remark}
+
+
+\begin{theorem}{Sylvester's Theorem for 'almost' general Fields}{syl_theo_field}
+	Let $V$ be a finite dimensional vecotr space over a field $K$, in which $2 \neq 0$. Let $B:V \times V \to K$ be a symmetric bilinear form. Then there exists a basis $\mathcal{C}$ of $V$ s.t. $[B]_{\mathcal{C}}$ is diagonal.
+\end{theorem}
+
+What happens over $\mathbb{C}$?
+
+\begin{theorem}{Sylvester's Theorem over $\mathbb{C}$}{syl_theo_c}
+	Let $B:V \times V \to \mathbb{C}$ be a symmetric bilinear form on a vector space over $\mathbb{C}$ of dimension $n$. Then there exists a basis $\mathcal{C}$ of $V$ s.t.
+	\[
+		[B]_{\mathcal{C}} = 
+		\begin{pmatrix}
+			I_r & 0\\
+			0 & 0
+		\end{pmatrix},
+	\]
+	for some $0 \leq r \leq n$. The number $r$ is independent of the basis $\mathcal{C}$. It depends only on $B$. In fact
+	\[
+		n-r = \max\{\dim W \;|\; W \subseteq V \text{ is a subspace s.t. } B|_{W \times V} \equiv 0\}.
+	\]
+	$r$ is sometimes called the rank of $B$.
+\end{theorem}
+
+\subsection{More on positive definite Bilinear Forms}
+
+\begin{theorem}{Equivalent Conditions for a Positive Definite Bilinear Form}{equiv_cond_pos_def_bilin}
+	Let $V$ be a finite dimensional vector space over $\mathbb{R}$ and $B: V \times V \to \mathbb{R}$ a symmetric bilinear form. Then the following conditions are equivalent:
+	\begin{enumerate}
+		\item $B$ is positive definite
+		\item There exists a basis $\mathcal{C} = (e_1, \hdots , e_n)$ for $V$ s.t. the principal minors $\det\big(B(e_j, e_k)\big)_{j,k = 1, \hdots , l}$ for all $1 \leq l \leq n$ are positive.
+		\item Same as 2. But instead of $\exists$ a basis put for $\forall$ bases.
+	\end{enumerate}
+\end{theorem}
 
 
 
