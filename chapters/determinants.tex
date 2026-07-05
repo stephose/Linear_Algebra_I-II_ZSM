@@ -180,20 +180,20 @@ Why Can $\sigma$ be written as in \eqref{eq:permut_transp}. Start with $(1, \hdo
 	We know that determinant functions $M_{n\times n}(K) \to K$ exists for every $n \geq 1$. Fix a determinant function $E:M_{n\times n}(K) \to K$. Consider $E(\varepsilon_{\sigma 1}, \hdots , \varepsilon_{\sigma n})$. If $(\sigma 1, \hdots, \sigma n)$ can be obtained from $(1, \hdots, n)$ by a sequence of $m$ transpositions, then the matrix
 	\[
 		\begin{pmatrix}
-			\rule[0.5ex]{1em}{0.4pt} & \varepsilon_1 & \rule[0.5ex]{1em}{0.4pt}\\
+			\rule[0.5ex]{1em}{0.4pt} & \varepsilon_{\sigma 1} & \rule[0.5ex]{1em}{0.4pt}\\
 			& \vdots & \\
-			\rule[0.5ex]{1em}{0.4pt} & \varepsilon_n & \rule[0.5ex]{1em}{0.4pt}
+			\rule[0.5ex]{1em}{0.4pt} & \varepsilon_{\sigma n} & \rule[0.5ex]{1em}{0.4pt}
 		\end{pmatrix}
 	\]
 	can be obtained from
 	\[
 		I = \begin{pmatrix}
-			1 & \hdots & 0\\
-			\vdots &\ddots & \vdots\\
-			0 & \hdots & 1
+			\rule[0.5ex]{1em}{0.4pt} & \varepsilon_1 & \rule[0.5ex]{1em}{0.4pt}\\
+			& \vdots & \\
+			\rule[0.5ex]{1em}{0.4pt} & \varepsilon_n & \rule[0.5ex]{1em}{0.4pt}
 		\end{pmatrix}
 	\]
-	by a sequence of $m$ interchanges of pairs of rows. Therefore,
+	by a sequence of $m$ interchanges of pairs of rows. Therefore, since $E$ is a determinant function, we have that
 	\[
 		E(\varepsilon_{\sigma 1}, \hdots, \varepsilon_{\sigma n}) = (-1)^m E(\varepsilon_1, \hdots, \varepsilon_n) = (-1)^m E(I) = (-1)^m.
 	\]
@@ -284,7 +284,7 @@ Also, note that $|S_n| = n!$
 	\[
 		D(A) = \det(\alpha_1 B, \hdots, \alpha_n B).
 	\]
-	Clearly, for every two row vectors $\alpha_i, \alpha_i'$ we have that $(\alpha_i + \alpha_i') B = \alpha_i B + \alpha_i' B$ and
+	Clearly, by the rules of matrix multiplication, for every two row vectors $\alpha_i, \alpha_i'$ we have that $(\alpha_i + \alpha_i') B = \alpha_i B + \alpha_i' B$ and
 	\[
 		\forall \, c\in K : \; (c \cdot \alpha_i) B = c \cdot (\alpha_i B).
 	\]

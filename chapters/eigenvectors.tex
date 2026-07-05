@@ -44,16 +44,16 @@
 	
 	\textbf{$n = 1$:} $v_1$ is an eigenvector for $\lambda_1$. By definition of $v_1 \neq 0$. $\Longrightarrow \; v_1$ is linearly independent.
 	
-	\textbf{Induction step:} $Let n \geq 1$ and suppose the proposition holds for any list of $n$ eigenvalues and eigenvectors. We'll prove now that the propostion holds also fro a list of $n+1$ eigenvalues and eigenvectors. Let $\lambda_1, \hdots, \lambda_n, \lambda_{n+1}$ be pairwise distinct eigenvalues of $T$, and $v_1, \hdots , v_n, v_{n+1}$ a given list of eigenvectors of $\lambda_1, \hdots, \lambda_n, \lambda_{n+1}$, respectively. We need to prove that $v_1, \hdots , v_n, v_{n+1}$ are linearly independent.
+	\textbf{Induction step:} Let $n \geq 1$ and suppose the proposition holds for any list of $n$ eigenvalues and eigenvectors. We'll prove now that the propostion holds also fro a list of $n+1$ eigenvalues and eigenvectors. Let $\lambda_1, \hdots, \lambda_n, \lambda_{n+1}$ be pairwise distinct eigenvalues of $T$, and $v_1, \hdots , v_n, v_{n+1}$ a given list of eigenvectors of $\lambda_1, \hdots, \lambda_n, \lambda_{n+1}$, respectively. We need to prove that $v_1, \hdots , v_n, v_{n+1}$ are linearly independent.
 	
 	Assume that 
 	\begin{equation}
 		\label{eq:distinct_eigenval_1}
-		a_1v_1 + \hdots, a_n v_n + a_{n+1} v_{n+1} = 0.
+		a_1v_1 + \hdots + a_n v_n + a_{n+1} v_{n+1} = 0.
 	\end{equation}
-	We need to show that $a_1 = \hdots = a_n = a_{n+1} = 0$. Apply $T$ to Equation \eqref{eq:distinct_eigenval_1}. Then we have that
+	We need to show that $a_1 = \hdots = a_n = a_{n+1} = 0$. Apply $T$ to Equation \eqref{eq:distinct_eigenval_1}. Since $T$ is linear, we have that
 	\[
-		a_1 Tv_1 + \hdots , a_n Tv_n + a_{n+1} Tv_{n+1} = 0.
+		a_1 Tv_1 + \hdots + a_n Tv_n + a_{n+1} Tv_{n+1} = 0.
 	\]
 	But $\forall \,i :\; Tv_i = \lambda_i v_i$. Therefore,
 	\begin{equation}
@@ -62,13 +62,13 @@
 	\end{equation}
 	Consider now Equation \eqref{eq:distinct_eigenval_2} - $\lambda_{n+1} \cdot $\eqref{eq:distinct_eigenval_1}, i.e.,
 	\[
-		a_1 (\lambda_1 - \lambda_{n+1}) v_1 + \hdots, a_n (\lambda_n - \lambda_{n+1}) v_n + a_{n+1}\underbrace{(\lambda_{n+1} - \lambda_{n+1})}_{\displaystyle = 0}v_{n+1} = 0.
+		a_1 (\lambda_1 - \lambda_{n+1}) v_1 + \hdots + a_n (\lambda_n - \lambda_{n+1}) v_n + a_{n+1}\underbrace{(\lambda_{n+1} - \lambda_{n+1})}_{\displaystyle = 0}v_{n+1} = 0.
 	\]
 	By the induction hypothesis $v_1, \hdots , v_n$ are linearly independent. Therefore,
 	\[
-		a_1 (\lambda_1 - \lambda_{n+1}) =  \hdots, a_n (\lambda_n - \lambda_{n+1}) = 0.		
+		a_1 (\lambda_1 - \lambda_{n+1}) =  \hdots = a_n (\lambda_n - \lambda_{n+1}) = 0.		
 	\]
-	By assumptiion $\lambda_i \neq \lambda_{n+1} \quad \forall 1 \leq i \leq n$. So we have that $a_1 = \hdots = a_n = 0$. Going back to Equation \eqref{eq:distinct_eigenval_1} we get that $a_{n+1} \cdot v_{n+1} = 0$. But by assumption we also have that $v_{n+1} \neq 0$. Therefore, $a_{n+1} = 0$. \qedhere
+	By assumption $\lambda_i \neq \lambda_{n+1} \quad \forall\, 1 \leq i \leq n$. So we have that $a_1 = \hdots = a_n = 0$. Going back to Equation \eqref{eq:distinct_eigenval_1} we get that $a_{n+1} \cdot v_{n+1} = 0$. But by assumption we also have that $v_{n+1} \neq 0$. Therefore, $a_{n+1} = 0$. \qedhere
 \end{proof}
 
 \subsection{The Characteristic Polynomial}
@@ -172,9 +172,9 @@
 		\label{eq:trace_1}
 		[T]^{\mathcal{B}'}_{\mathcal{B}'} = [id_V]^{\mathcal{B}}_{\mathcal{B}'} \cdot [T]^{\mathcal{B}}_{\mathcal{B}} \cdot [id_V]^{\mathcal{B}'}_{\mathcal{B}}
 	\end{equation}
-	and $[id_V]^{\mathcal{B}}_{\mathcal{B}'} = \big([id_V]^{\mathcal{B}'}_{\mathcal{B}}\big)^{-1}$. So, by Equation \eqref{eq:trace_1} we have that
+	and $[id_V]^{\mathcal{B}}_{\mathcal{B}'} = \big([id_V]^{\mathcal{B}'}_{\mathcal{B}}\big)^{-1}$. So, $[T]^{\mathcal{B}'}_{\mathcal{B}'}$ and $[T]^{\mathcal{B}}_{\mathcal{B}}$ are similar matrices. Therefore,
 	\[
-		[T]^{\mathcal{B}'}_{\mathcal{B}'} = [T]^{\mathcal{B}}_{\mathcal{B}}. \qedhere
+		\operatorname{Tr}\big([T]^{\mathcal{B}'}_{\mathcal{B}'}\big) = \operatorname{Tr}\big([T]^{\mathcal{B}}_{\mathcal{B}}\big).
 	\]
 \end{proof}
 
@@ -252,7 +252,7 @@ Sometimes $\lambda$ is also a zero of $q(x)$, so $q(x) = (x - \lambda) \cdot h(x
 	Assume now, in addition, that $V$ is finite dimensional. We define the \textbf{algebraic multiplicity} of $\lambda$ to be the multiplicity of the zero $\lambda$ in the characteristic polynomial $p_T(x)$ of $T$. We denote it by $m_A(T;\lambda)$.
 \end{definition}
 
-\begin{proposition}{\textcolor{red}{Inequlity Regarding Geometric \& Algebraic Multiplicity}}{ineq_geom_alg_multi}
+\begin{proposition}{\textcolor{red}{Inequality Regarding Geometric \& Algebraic Multiplicity}}{ineq_geom_alg_multi}
 	\[
 		m_g(T;\lambda) \leq m_a(T;\lambda).
 	\]
@@ -274,11 +274,11 @@ Sometimes $\lambda$ is also a zero of $q(x)$, so $q(x) = (x - \lambda) \cdot h(x
 			0 & \hdots & 0 & C
 		\end{pmatrix},
 	\]
-	where $C \in M_{(n-k \times (n-k))}(K)$. Therefore,
+	where $C \in M_{(n-k) \times (n-k)}(K)$. Therefore,
 	\begin{align*}
 		p_T(x) = \det\big([T]^{\mathcal{B}}_{\mathcal{B}} - x I_n\big) = (\lambda - x)^k \cdot \det(C - x I_{n-k}) = (\lambda - x)^k \cdot p_C(x) = (-1)^k\cdot (x - \lambda)^k \cdot p_C(x).
 	\end{align*}
-	this shows that the multiplicity of $\lambda$ as a zero of $p_T(x)$ is at least $k$. In other words,
+	This shows that the multiplicity of $\lambda$ as a zero of $p_T(x)$ is at least $k$. In other words,
 	\[
 		m_a(T;\lambda) \geq k = m_g(T;\lambda). \qedhere
 	\]

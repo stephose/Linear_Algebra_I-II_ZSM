@@ -132,7 +132,7 @@ Since $v_1, \hdots , v_n$ form a basis for $V$, our definition determines unique
 	\[
 		\ell \circ T:V \to K
 	\]
-	is a linear map, b.c. both $\ell$ and $T$ are linear. So, $T^*(\ell) := \ell \circ T \in V^*$. This shows that $T^*:W^* \to V^*$ indeed has as it's target $V^*$ as claimed, see also the Image \ref{fig:dual_map}.
+	is a linear map, b.c. both $\ell$ and $T$ are linear. So, $T^*(\ell) := \ell \circ T \in V^*$. This shows that $T^*:W^* \to V^*$ indeed has as it's target $V^*$ as claimed, see also the Figure \ref{fig:dual_map}.
 	\begin{figure}[h]
 		\label{fig:dual_map}
 		\centering
@@ -147,7 +147,7 @@ Since $v_1, \hdots , v_n$ form a basis for $V$, our definition determines unique
 	
 	Now, let $\ell_1, \ell_2 \in W^*$. We have that $T^*(\ell_1 + \ell_2) \in V^*$ is the map
 	\begin{align*}
-		T^*(\ell_1 + \ell_2)(v) &= \big((\ell_1 + \ell_2) \circ T\big)(v) = (\ell_1 \circ T + \ell_2 \circ T)(v) = (\ell_1 \circ T)(v) + (\ell \circ T)(v)\\
+		T^*(\ell_1 + \ell_2)(v) &= \big((\ell_1 + \ell_2) \circ T\big)(v) = (\ell_1 \circ T + \ell_2 \circ T)(v) = (\ell_1 \circ T)(v) + (\ell_2 \circ T)(v)\\
 		&= \big(T^*(\ell_1)\big)(v) + \big(T^*(\ell_2)\big)(v) \\
 		\Longrightarrow \qquad T^*(\ell_1 + \ell_2) &= T^*(\ell_1) + T^*(\ell_2).
 	\end{align*}
@@ -175,8 +175,9 @@ Since $v_1, \hdots , v_n$ form a basis for $V$, our definition determines unique
 	\]
 	Now, for $w_j^* \in \mathcal{C}^*$ we have by Lemma \ref{lem*dual_base}
 	\begin{align*}
-				S^*w_j^* &= w_j^* \circ S = \sum_{i=1}^{n} (w_j^* \circ S)(v_i) \cdot v_i^* = \sum_{i=1}^{n} w_j^*\big(S(v_i)\big)\cdot v_i^*\\
-				 &= \sum_{i=1}^{n}w_j^*\bigg(\sum_{k=1}^{m}a_{ki} w_k\bigg)\cdot v_i^* = \sum_{i=1}^{n} a_{ji} v_i^*.
+		S^*w_j^* &= w_j^* \circ S = \sum_{i=1}^{n} (w_j^* \circ S)(v_i) \cdot v_i^* = \sum_{i=1}^{n} w_j^*\big(S(v_i)\big)\cdot v_i^*\\
+		&= \sum_{i=1}^{n}w_j^*\bigg(\sum_{k=1}^{m}a_{ki} w_k\bigg)\cdot v_i^* = 
+		\sum_{i=1}^{n} \sum_{k=1}^{m} a_{ki} w_j^*(w_k) \cdot v_i^* =	\sum_{i=1}^{n} a_{ji} v_i^*.
 	\end{align*}
 	Therefore, the coordinates of $S^*w_j^*$ in the basis $\mathcal{B}^* = (v_1^*, \hdots , v_n^*)$ are
 	\[
@@ -349,7 +350,7 @@ We now define the map
 		\overline{T}([v_1] + [v_2]) = \overline{T}([v_1 + v_2]) = T(v_1 + v_2) = T(v_1) + T(v_2) = \overline{T}([v_1]) + \overline{T}([v_2]).
 	\]
 	
-	\textbf{2) $\overline{T}$ is injective:} Let $x \in \ker(T)$. Write $x$ as $x = [v]$ for some $v \in V$. Then
+	\textbf{2) $\overline{T}$ is injective:} Let $x \in \ker(\overline{T})$. Write $x$ as $x = [v]$ for some $v \in V$. Then
 	\[
 		\underbrace{\overline{T}(x)}_{\displaystyle = 0} = T(v).
 	\]

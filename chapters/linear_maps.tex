@@ -276,13 +276,13 @@ Write $[T]^{\mathcal{A}}_{\mathcal{B}} = (a_{ij}), [S]^{\mathcal{B}}_{\mathcal{C
 	\label{eq:comp_mat_a}
 	T(v_j) &= \sum_{k=1}^{m} a_{kj} w_k \qquad \forall 1 \leq j \leq n\\
 	\label{eq:comp_mat_b}
-	T(w_j) &= \sum_{i=1}^{p} b_{ij} u_i \qquad \forall 1 \leq j \leq m\\
+	S(w_j) &= \sum_{i=1}^{p} b_{ij} u_i \qquad \forall 1 \leq j \leq m\\
 	\label{eq:comp_mat_c}
 	S \circ T(v_j) &= \sum_{i=1}^{p} c_{ij} u_i \qquad \forall 1 \leq j \leq n
 \end{align}
 But we can calculate $S \circ T(v_j)$ by using Equations \eqref{eq:comp_mat_a}, \eqref{eq:comp_mat_b}. Then we have
 \begin{align*}
-	S \circ T(v_j) &= S\big(\sum_{k=1}^{m} a_{kj} w_k\big) = \sum_{k=1}^{m} a_{kj} S(w_j) = \sum_{k=1}^{m} a_{kj} \big(\sum_{i=1}^{p}b_{ik} u_i \big)\\
+	S \circ T(v_j) &= S\big(\sum_{k=1}^{m} a_{kj} w_k\big) = \sum_{k=1}^{m} a_{kj} S(w_k) = \sum_{k=1}^{m} a_{kj} \big(\sum_{i=1}^{p}b_{ik} u_i \big)\\
 	&= \sum_{k=1}^{m}\sum_{i=1}^{p} a_{kj}b_{ik} u_i = \sum_{i=1}^{p}\sum_{k=1}^{m} a_{kj}b_{ik} u_i = \sum_{i=1}^{p} \big(\sum_{k=1}^{m} b_{ik}a_{kj}\big) u_i\\
 	\Longrightarrow \quad c_{ij} &= \sum_{k=1}^{m} b_{ik}a_{kj}.
 \end{align*}
