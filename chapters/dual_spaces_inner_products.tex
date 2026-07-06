@@ -16,7 +16,7 @@ Consider now an inner product space $(V, \langle \cdot , \cdot \rangle)$ over $K
 $\varphi_u$ is linear since, $v$ is the first argument in the scalar/hermitian product.
 
 \begin{theorem}{Canonical 'Almost' Isomorphism between $V$ and $V^{\ast}$}{can_iso_dual_sp}
-	Let $(V, \langle \cdot, \cdot \rangle)$ be a finite dimensional inner product space over $K = \mathbb{R}$ or $\mathbb{C}$. Let $\varphi \in V^{\ast}$. Then there exists a \textbf{unique} $u \in V$ s.t. $\varphi = \varphi_u$, i.e., $\varphi(v) = \varphi_u(v) \quad \forall \, v \in V$.
+	Let $(V, \langle \cdot, \cdot \rangle)$ be a finite dimensional inner product space over $K = \mathbb{R}$ or $\mathbb{C}$. Let $\varphi \in V^{\ast}$. Then there exists a \textbf{unique} $u \in V$ s.t. $\varphi = \varphi_u$, i.e., $\varphi(v) = \langle v, u \rangle \quad \forall \, v \in V$.
 	
 	In fact, for $K = \mathbb{R}$ the map $\Phi:V \to V^{\ast}$, given by $\Phi(u):= \varphi_u$ is an isomorphism.
 	
@@ -26,6 +26,32 @@ $\varphi_u$ is linear since, $v$ is the first argument in the scalar/hermitian p
 		\Phi(c u) &= \overline{c} \cdot \Phi(u) \qquad \forall \, c \in \mathbb{C}, u \in V.
 	\end{align*}
 \end{theorem}
+
+\begin{proof}
+	Let $n := \dim V$ and fix an orthonormal basis $e_1, \hdots , e_n$ for $V$, which exists by the Gram-Schmidt orthogonalization process \ref{theo*gram_schm_orth_pro}. Let $\varphi \in V^*$. Let $v \in V$. By Theorem \ref{theo*prop_orth_sys} we have that
+	\[
+		v= \sum_{i=1}^{n} \langle v, e_i \rangle e_i.
+	\]
+	Therefore,
+	\[
+		\varphi(v) = \varphi \Big(\sum_{i=1}^{n} \langle v, e_i \rangle e_i\Big) = \sum_{i=1}^{n} \langle v, e_i \rangle \, \varphi(e_i) = \langle v, \sum_{i=1}^{n} \overline{\varphi(e_i)}\, e_i \rangle.
+	\]
+	Define 
+	\[
+		u := \sum_{i=1}^{n} \overline{\varphi(e_i)}\, e_i.
+	\]
+	Then we have that $\varphi(v) = \varphi_u(v) \quad \forall v \in V$.
+	
+	We'll show now the uniqueness of $u$. Suppose that $\varphi_{u_1} = \varphi_{u_2}$ for some $u_1, u_2 \in V$. Then we have that
+	\[
+		\langle v, u_1 \rangle = \langle v, u_2 \rangle \qquad \forall v \in V.
+	\]
+	By a previous result, this shows that $u1 = u_2$. This shows that $\Phi$ is surjective and injective.
+	
+	For $K = \mathbb{R}$, we have that the scalar product $\langle \cdot , \cdot \rangle$ is bilinear. So it follows that $\Phi$ is also linear, hence $\Phi$ is an isomorphism.
+	
+	For $K = \mathbb{C}$, we have that the hermitian product $\langle \cdot , \cdot \rangle$ is $\mathbb{C}$-atnilinear in the second variable. So, it follows that $\Phi$ is also $\mathbb{C}$-antilinear.
+\end{proof}
 So, at least for $K = \mathbb{R}$, a scalar product on $V$ gives us a canonical isomorphism $V \cong V^{\ast}$. (But this isomorphism depends on the scalar product!)
 
 \subsection{\textcolor{red}{The Adjoint Map}}
