@@ -98,11 +98,24 @@ $T_A:\mathbb{R}^2 \to \mathbb{R}^2$ is a clockwise rotation by 90°, so there ex
 \end{theorem}
 
 \begin{proof}
-	\underline{$\Longrightarrow$:} Has already been proven in Lemma \ref{lem*consq_orth_diag}
+	\underline{$\Longrightarrow$:} Let $\mathcal{B}$ be an orthonormal basis for $V$ s.t. all the elements in $\mathcal{B}$ are eigenvectors of $T$. Therefore, $[T]^{\mathcal{B}}_{\mathcal{B}}$ is a diagonal matrix. By Proposition \ref{prop*mat_adj_map} we have that
+	\[
+		[T^*]^{\mathcal{B}}_{\mathcal{B}} = \big([T]^{\mathcal{B}}_{\mathcal{B}}\big)^*.
+	\]
+	So, $[T^*]^{\mathcal{B}}_{\mathcal{B}}$ is also diagonal. Since diagonal matrices commute and by a property of matrix multiplication, we have that
+	\begin{align*}
+		[T]^{\mathcal{B}}_{\mathcal{B}} \cdot [T^*]^{\mathcal{B}}_{\mathcal{B}} &= [T^*]^{\mathcal{B}}_{\mathcal{B}} \cdot [T]^{\mathcal{B}}_{\mathcal{B}}\\
+		\Longrightarrow \quad [T \circ T^*]^{\mathcal{B}}_{\mathcal{B}} &= [T^*\circ T]^{\mathcal{B}}_{\mathcal{B}}.
+	\end{align*}
+	By a result from the lecture, we conclude that $T\circ T^* = T^*\circ T$.
 	
 	\underline{$\Longleftarrow$:} By the fundamental Theorem of Algebra \ref{theo*fund_thm_alg}, $T$ is trigonalizable, i.e., there exists a basis $\mathcal{C} = (u_1, \hdots , u_n)$ for $V$ s.t. $[T]^{\mathcal{C}}_{\mathcal{C}}$ is an upper triangular matrix. By applying the Gram-Schmidt orthogonalization process \ref{theo*gram_schm_orth_pro} to the basis $\mathcal{C}$ we obtain a new basis $\mathcal{B} = (v_1, \hdots , v_n)$ which is orthonormal and s.t. $[T]^\mathcal{B}_\mathcal{B}$ is still upper triangular, b.c. $\operatorname{Sp}(u_1, \hdots , u_j) = \operatorname{Sp}(v_1, \hdots , v_j)$ for every $1 \leq j \leq n$.
 	
-	We claim that $[T]^{\mathcal{B}}_{\mathcal{B}}$ is actually diagonal. To see this write $[T]^{\mathcal{B}}_{\mathcal{B}} = (a_{ij})$. Since $\mathcal{B}$ is orthonormal, we have $\Vert Tv_1 \Vert^2 = \vert a_{11} \vert^2$. Since $[T^*]^{\mathcal{B}}_{\mathcal{B}} = \big([T]^{\mathcal{B}}_{\mathcal{B}}\big)^*$ we also have
+	We claim that $[T]^{\mathcal{B}}_{\mathcal{B}}$ is actually diagonal. To see this write $[T]^{\mathcal{B}}_{\mathcal{B}} = (a_{ij})$. Since $\mathcal{B}$ is orthonormal, we have $\Vert Tv_1 \Vert^2 = \vert a_{11} \vert^2$. Indeed, 
+	\[
+		\langle Tv_1, Tv_1 \rangle = \langle a_{11}v_1, a_{11}v_1 \rangle = a_{11}\,\overline{a_{11}}\, \underbrace{\langle v_1, v_1\rangle}_{\displaystyle =1} = \vert a_{11}\vert^2.
+	\] 
+	Since $[T^*]^{\mathcal{B}}_{\mathcal{B}} = \big([T]^{\mathcal{B}}_{\mathcal{B}}\big)^*$ we also have
 	\begin{align*}
 		[T^*]^{\mathcal{B}}_{\mathcal{B}} &= \begin{pmatrix}
 			\overline{a}_{11} & 0 & \hdots & 0\\
